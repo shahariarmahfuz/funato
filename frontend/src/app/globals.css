@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+/* =========================================================
+   July Font Family (BCC Official Unicode Display & UI Font)
+   ========================================================= */
+@font-face {
+  font-family: "July";
+  src: url("/fonts/July/July-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "July";
+  src: url("/fonts/July/July-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "July";
+  src: url("/fonts/July/July-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "July";
+  src: url("/fonts/July/July-Bold-Italic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* =========================================================
+   Kalpurush Font Family (Classic Readable Bangla Body Font)
+   ========================================================= */
+@font-face {
+  font-family: "Kalpurush";
+  src: url("/fonts/Kalpurush/kalpurush.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: #fdfdfc;
+  --foreground: #1b1b18;
+  --brand-primary: #1788bf;
+  --brand-deep: #2375b8;
+  --brand-dark: #0f4c75;
+  --brand-tint: #f0f7fd;
+  --font-heading: "July", system-ui, -apple-system, sans-serif;
+  --font-body: "Kalpurush", "July", system-ui, -apple-system, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand: #1788bf;
+  --color-brand-deep: #2375b8;
+  --color-brand-dark: #0f4c75;
+  --color-brand-tint: #f0f7fd;
+  --font-sans: var(--font-body);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+nav,
+.font-july {
+  font-family: var(--font-heading);
+}
+
+.font-kalpurush {
+  font-family: var(--font-body);
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+  }
+}

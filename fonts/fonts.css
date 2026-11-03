@@ -1,0 +1,47 @@
+/* ======================================================
+   July Font Family (Unicode)
+   ====================================================== */
+@font-face {
+  font-family: 'July';
+  src: url('./July/July-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'July';
+  src: url('./July/July-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'July';
+  src: url('./July/July-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'July';
+  src: url('./July/July-Bold-Italic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* ======================================================
+   Kalpurush Font Family (Unicode & ANSI)
+   ====================================================== */
+@font-face {
+  font-family: 'Kalpurush';
+  src: url('./Kalpurush/kalpurush.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Kalpurush ANSI';
+  src: url('./Kalpurush/kalpurush-ANSI.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
