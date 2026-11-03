@@ -14,8 +14,19 @@ import {
   Sparkles,
   UserPlus,
   X,
+  Flame,
+  CheckCircle2,
+  Users,
+  Utensils,
+  GraduationCap,
+  Briefcase,
+  MapPin,
+  FileText,
+  BadgeCheck,
+  Video,
+  PhoneCall,
 } from "lucide-react";
-import { apiFetch, formatBDT, formatDate } from "@/lib/api";
+import { apiFetch, formatBDT, formatDate, toBnDigits } from "@/lib/api";
 import { HomeBundle, MediaVideo } from "@/lib/types";
 import { useLanguage } from "@/context/LanguageContext";
 import DonationWidget from "@/components/DonationWidget";
@@ -55,7 +66,7 @@ export default function HomePage() {
     { id: "all", bn: "সকল প্রকল্প", en: "All Programs" },
     { id: "shelter", bn: "শেল্টারহোম", en: "Shelterhome" },
     { id: "food", bn: "মেহমানখানা", en: "Mehmankhana" },
-    { id: "zakat", bn: "যাকাত", en: "Zakat" },
+    { id: "zakat", bn: "যাকাত স্বাবলম্বীকরণ", en: "Zakat" },
     { id: "orphan", bn: "এতিমখানা", en: "Orphanage" },
     { id: "emergency", bn: "জরুরি ত্রাণ", en: "Emergency" },
     { id: "sadaqah", bn: "সদকায়ে জারিয়া", en: "Sadaqah" },
@@ -65,54 +76,114 @@ export default function HomePage() {
   const currentSlide = slides[slideIdx];
   const impactStats = data?.settings?.impact_stats || settings.impact_stats || [];
 
+  // Decorative icon mapping for 4 impact stats
+  const statIcons = [
+    {
+      icon: Users,
+      bg: "bg-sky-50 text-[#2375b8] border-sky-100",
+      accent: "text-[#2375b8]",
+    },
+    {
+      icon: Utensils,
+      bg: "bg-emerald-50 text-emerald-600 border-emerald-100",
+      accent: "text-emerald-700",
+    },
+    {
+      icon: Briefcase,
+      bg: "bg-amber-50 text-amber-600 border-amber-100",
+      accent: "text-amber-700",
+    },
+    {
+      icon: MapPin,
+      bg: "bg-purple-50 text-purple-600 border-purple-100",
+      accent: "text-purple-700",
+    },
+  ];
+
   return (
-    <div>
-      {/* HERO SECTION: Slider + Mastul Quick Donation Form */}
-      <section className="relative bg-gradient-to-b from-[#e8f4fc] via-[#f4f9fd] to-[#FDFDFC] pt-6 pb-14 px-4 overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left 7 Columns: Dynamic Hero Carousel */}
+    <div className="space-y-16 sm:space-y-20 pb-16">
+      {/* 1. URGENT APPEAL NOTICE RIBBON */}
+      <div className="bg-gradient-to-r from-rose-50 via-amber-50 to-sky-50 border-b border-rose-200/60 py-2.5 px-3 sm:px-6">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-july font-bold text-[11px] shadow-xs shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
+              জরুরি আবেদন
+            </span>
+            <p className="text-slate-800 font-medium truncate">
+              শীতবস্ত্র বিতরণ ও আশ্রয়হীন পরিবারের পুনর্বাসন তহবিল — অসহায় মানুষের পাশে দাঁড়ান
+            </p>
+          </div>
+          <Link
+            href="/donate/shelterhome"
+            className="inline-flex items-center gap-1 font-july font-bold text-[#0f4c75] hover:text-[#2375b8] underline underline-offset-4 decoration-rose-300 hover:decoration-[#2375b8] transition shrink-0"
+          >
+            <span>এখনই অনুদান দিন</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      </div>
+
+      {/* 2. HERO SECTION: Dynamic Carousel + Compact Donation Widget */}
+      <section className="relative -mt-8 pt-6 px-4 overflow-hidden">
+        {/* Soft Background Ambient Light Gradients */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-200/40 rounded-full blur-3xl -z-10 pointer-events-none" />
+        <div className="absolute top-1/3 right-10 w-80 h-80 bg-blue-100/50 rounded-full blur-3xl -z-10 pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+          {/* Left 7 Columns: Hero Carousel */}
           <div className="lg:col-span-7">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl min-h-[430px] sm:min-h-[510px] bg-[#0f4c75] flex flex-col justify-end">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl shadow-slate-900/10 min-h-[440px] sm:min-h-[520px] bg-[#0b2942] flex flex-col justify-end border border-slate-200/60 group">
               {currentSlide ? (
                 <>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={currentSlide.image_url}
-                    alt={t(currentSlide.title_bn, currentSlide.title_en)}
-                    className="absolute inset-0 w-full h-full object-cover transition-all duration-700"
+                    alt={currentSlide.title_bn}
+                    className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#082238] via-[#0b2e4b]/65 to-black/20" />
-                  <div className="relative z-10 p-6 sm:p-10 space-y-4 text-white">
-                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#1788bf]/90 backdrop-blur-xs text-xs sm:text-sm font-july font-bold">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      {t(currentSlide.badge_bn, currentSlide.badge_en)}
-                    </span>
-                    <h1 className="text-2xl sm:text-4xl font-july font-bold leading-snug">
-                      {t(currentSlide.title_bn, currentSlide.title_en)}
+                  {/* Rich Gradient Overlay for Maximum Text Legibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#061b2e] via-[#092742]/70 to-black/25" />
+
+                  <div className="relative z-10 p-6 sm:p-9 space-y-4 text-white">
+                    {/* Badge */}
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-xs sm:text-sm font-july font-bold text-sky-100 shadow-sm">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                      <span>{currentSlide.badge_bn}</span>
+                    </div>
+
+                    {/* Headline */}
+                    <h1 className="text-2xl sm:text-4xl font-july font-bold leading-tight sm:leading-snug text-white tracking-tight drop-shadow-sm">
+                      {currentSlide.title_bn}
                     </h1>
-                    <p className="text-sm sm:text-base text-slate-200 max-w-2xl leading-relaxed">
-                      {t(currentSlide.subtitle_bn, currentSlide.subtitle_en)}
+
+                    {/* Subtitle */}
+                    <p className="text-sm sm:text-base text-slate-100 max-w-2xl leading-relaxed font-light drop-shadow-xs">
+                      {currentSlide.subtitle_bn}
                     </p>
+
+                    {/* CTA Actions */}
                     <div className="pt-2 flex flex-wrap items-center gap-3">
                       <Link
                         href={currentSlide.cta_link || "/donate"}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#1788bf] hover:bg-[#2375b8] text-white font-july font-bold shadow-lg transition"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#2375b8] to-[#1788bf] hover:from-[#1b619c] hover:to-[#1374a6] text-white font-july font-bold shadow-lg shadow-sky-950/40 hover:shadow-xl hover:-translate-y-0.5 transition duration-200 cursor-pointer"
                       >
                         <Heart className="w-4 h-4 fill-white" />
-                        <span>{t(currentSlide.cta_text_bn, currentSlide.cta_text_en)}</span>
+                        <span>{currentSlide.cta_text_bn || "দান করুন"}</span>
                       </Link>
                       <Link
                         href="/zakat-calculator"
-                        className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur-xs text-white font-july font-bold transition"
+                        className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-july font-bold border border-white/25 hover:border-white/40 shadow-sm transition duration-200 cursor-pointer"
                       >
                         <Calculator className="w-4 h-4 text-amber-300" />
-                        <span>{t("যাকাত হিসাব করুন", "Calculate Zakat")}</span>
+                        <span>যাকাত হিসাব করুন</span>
                       </Link>
                     </div>
 
-                    {/* Carousel Controls */}
+                    {/* Carousel Navigation Strip */}
                     {slides.length > 1 && (
-                      <div className="pt-4 flex items-center justify-between">
+                      <div className="pt-4 flex items-center justify-between border-t border-white/10">
+                        {/* Slide Dots with Active Expansion */}
                         <div className="flex items-center gap-2">
                           {slides.map((s, idx) => (
                             <button
@@ -120,28 +191,35 @@ export default function HomePage() {
                               type="button"
                               onClick={() => setSlideIdx(idx)}
                               aria-label={`Slide ${idx + 1}`}
-                              className={`h-2 rounded-full transition-all cursor-pointer ${
-                                idx === slideIdx ? "w-8 bg-sky-400" : "w-2 bg-white/50"
+                              className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                                idx === slideIdx
+                                  ? "w-8 bg-sky-400 shadow-xs"
+                                  : "w-2.5 bg-white/40 hover:bg-white/60"
                               }`}
                             />
                           ))}
                         </div>
+
+                        {/* Slide Counter & Next/Prev Controls */}
                         <div className="flex items-center gap-2">
+                          <span className="text-xs text-slate-300 font-mono font-bold mr-1">
+                            {toBnDigits(slideIdx + 1)} / {toBnDigits(slides.length)}
+                          </span>
                           <button
                             type="button"
                             onClick={() =>
                               setSlideIdx((slideIdx - 1 + slides.length) % slides.length)
                             }
-                            className="p-2 rounded-full bg-white/15 hover:bg-white/30 text-white transition cursor-pointer"
-                            aria-label="Prev"
+                            className="p-2 rounded-xl bg-white/15 hover:bg-white/30 text-white backdrop-blur-xs transition cursor-pointer"
+                            aria-label="Previous slide"
                           >
                             <ChevronLeft className="w-4 h-4" />
                           </button>
                           <button
                             type="button"
                             onClick={() => setSlideIdx((slideIdx + 1) % slides.length)}
-                            className="p-2 rounded-full bg-white/15 hover:bg-white/30 text-white transition cursor-pointer"
-                            aria-label="Next"
+                            className="p-2 rounded-xl bg-white/15 hover:bg-white/30 text-white backdrop-blur-xs transition cursor-pointer"
+                            aria-label="Next slide"
                           >
                             <ChevronRight className="w-4 h-4" />
                           </button>
@@ -152,12 +230,26 @@ export default function HomePage() {
                 </>
               ) : (
                 <div className="p-10 text-white space-y-4">
-                  <h1 className="text-3xl font-july font-bold">
-                    {t(settings.org_name_bn, settings.org_name_en)}
-                  </h1>
-                  <p>{t(settings.tagline_bn, settings.tagline_en)}</p>
+                  <h1 className="text-3xl font-july font-bold">{settings.org_name_bn}</h1>
+                  <p>{settings.tagline_bn}</p>
                 </div>
               )}
+            </div>
+
+            {/* Quick Trust Highlights below Carousel */}
+            <div className="grid grid-cols-3 gap-2 mt-3 text-center">
+              <div className="p-2 rounded-xl bg-white border border-slate-200/70 shadow-2xs text-[11px] sm:text-xs text-slate-700 font-july font-bold flex items-center justify-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                <span>১০০% শরীয়াহ অনুমোদিত</span>
+              </div>
+              <div className="p-2 rounded-xl bg-white border border-slate-200/70 shadow-2xs text-[11px] sm:text-xs text-slate-700 font-july font-bold flex items-center justify-center gap-1.5">
+                <FileText className="w-3.5 h-3.5 text-[#2375b8] shrink-0" />
+                <span>তাৎক্ষণিক মানি রিসিট</span>
+              </div>
+              <div className="p-2 rounded-xl bg-white border border-slate-200/70 shadow-2xs text-[11px] sm:text-xs text-slate-700 font-july font-bold flex items-center justify-center gap-1.5">
+                <BadgeCheck className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                <span>সরকারি সমাজসেবা নিবন্ধিত</span>
+              </div>
             </div>
           </div>
 
@@ -167,64 +259,186 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* IMPACT STATS STRIP */}
-        <div className="max-w-7xl mx-auto mt-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {impactStats.map((st, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-2xl p-5 border border-sky-100 shadow-xs text-center hover:border-sky-300 transition"
-              >
-                <div className="text-2xl sm:text-3xl font-july font-bold text-[#2375b8]">
-                  {t(st.value_bn, st.value_en)}
+        {/* 3. IMPACT COUNTER CARDS STRIP */}
+        <div className="max-w-7xl mx-auto mt-10 sm:mt-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {impactStats.map((st, idx) => {
+              const theme = statIcons[idx % statIcons.length];
+              const IconComp = theme.icon;
+              return (
+                <div
+                  key={idx}
+                  className="group bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-2xs hover:shadow-lg hover:-translate-y-1 hover:border-sky-300 transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <div
+                      className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl ${theme.bg} border flex items-center justify-center group-hover:scale-110 transition-transform`}
+                    >
+                      <IconComp className="w-5 h-5 sm:w-6 sm:h-6" />
+                    </div>
+                    <span className="text-[10px] sm:text-xs font-bold text-slate-400 bg-slate-50 px-2 py-0.5 rounded-full">
+                      অফিশিয়াল
+                    </span>
+                  </div>
+                  <div>
+                    <div className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75] tracking-tight">
+                      {st.value_bn}
+                    </div>
+                    <div className="text-xs sm:text-sm text-slate-600 mt-1 font-medium line-clamp-1">
+                      {st.label_bn}
+                    </div>
+                  </div>
                 </div>
-                <div className="text-xs sm:text-sm text-slate-600 mt-1 font-medium">
-                  {t(st.label_bn, st.label_en)}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* PROGRAMS & CAMPAIGNS SECTION */}
-      <section className="py-14 px-4 max-w-7xl mx-auto">
+      {/* 4. CORE HUMANITARIAN PILLARS (আমাদের ৪টি মূল স্তম্ভ) */}
+      <section className="max-w-7xl mx-auto px-4">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className="inline-block px-3.5 py-1 rounded-full bg-sky-100 text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
+            মানবতার সেবায় কার্যক্রম
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75]">
+            ভ্রাতৃত্ব ফাউন্ডেশনের প্রধান মানবিক স্তম্ভসমূহ
+          </h2>
+          <p className="text-slate-600 mt-2 text-sm sm:text-base">
+            আপনার সাদাকাহ ও যাকাতের সঠিক ব্যবস্থাপনায় পরিচালিত স্থায়ী সেবামূলক উদ্যোগ
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {/* Pillar 1: মেহমানখানা */}
+          <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-300 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition duration-300">
+                <Utensils className="w-6 h-6" />
+              </div>
+              <h3 className="font-july font-bold text-lg text-[#0f4c75] group-hover:text-emerald-700 transition">
+                ইসলামিক মেহমানখানা
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                প্রতিদিন সুবিধাবঞ্চিত পথশিশু, বৃদ্ধ ও ছিন্নমূল মানুষের মাঝে পুষ্টিকর উষ্ণ খাবার পরিবেশন।
+              </p>
+            </div>
+            <Link
+              href="/donate/mehmankhana"
+              className="mt-4 pt-3 border-t border-slate-100 inline-flex items-center justify-between text-xs font-july font-bold text-emerald-700 hover:text-emerald-800"
+            >
+              <span>এক বেলার খাবার দিন</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
+            </Link>
+          </div>
+
+          {/* Pillar 2: শেল্টারহোম ও এতিমখানা */}
+          <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-[#2375b8] hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-[#2375b8] flex items-center justify-center group-hover:bg-[#2375b8] group-hover:text-white transition duration-300">
+                <GraduationCap className="w-6 h-6" />
+              </div>
+              <h3 className="font-july font-bold text-lg text-[#0f4c75] group-hover:text-[#2375b8] transition">
+                শেল্টারহোম ও এতিমখানা
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                আশ্রয়হীন এতিম শিশুদের স্থায়ী আবাসন, মানসম্মত দ্বীনি শিক্ষা ও নিরাপদ ভবিষ্যৎ বিনির্মাণ।
+              </p>
+            </div>
+            <Link
+              href="/donate/shelterhome"
+              className="mt-4 pt-3 border-t border-slate-100 inline-flex items-center justify-between text-xs font-july font-bold text-[#2375b8] hover:text-[#0f4c75]"
+            >
+              <span>এতিমের দায়িত্ব নিন</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
+            </Link>
+          </div>
+
+          {/* Pillar 3: যাকাত স্বাবলম্বীকরণ */}
+          <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-amber-400 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition duration-300">
+                <Briefcase className="w-6 h-6" />
+              </div>
+              <h3 className="font-july font-bold text-lg text-[#0f4c75] group-hover:text-amber-700 transition">
+                যাকাত স্বাবলম্বীকরণ
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                সেলাই মেশিন, ভ্যানগাড়ি ও ক্ষুদ্র পুঁজি বিতরণের মাধ্যমে স্থায়ী জীবিকার স্থায়ী নিশ্চয়তা।
+              </p>
+            </div>
+            <Link
+              href="/donate/zakat"
+              className="mt-4 pt-3 border-t border-slate-100 inline-flex items-center justify-between text-xs font-july font-bold text-amber-700 hover:text-amber-800"
+            >
+              <span>পরিবার স্বাবলম্বী করুন</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
+            </Link>
+          </div>
+
+          {/* Pillar 4: অ্যাম্বুলেন্স ও দাফন সেবা */}
+          <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition duration-300">
+                <Heart className="w-6 h-6" />
+              </div>
+              <h3 className="font-july font-bold text-lg text-[#0f4c75] group-hover:text-purple-700 transition">
+                দাফন ও অ্যাম্বুলেন্স সেবা
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                বেওয়ারিশ ও অসহায় লাশের ফ্রি গোসল, কাফন-দাফন ও জরুরি অ্যাম্বুলেন্স সহায়তা প্রদান।
+              </p>
+            </div>
+            <Link
+              href="/donate/burial-service"
+              className="mt-4 pt-3 border-t border-slate-100 inline-flex items-center justify-between text-xs font-july font-bold text-purple-700 hover:text-purple-800"
+            >
+              <span>দাফন তহবিলে দিন</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. ACTIVE CAMPAIGNS & HUMANITARIAN FUNDS */}
+      <section className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <span className="inline-block px-3 py-1 rounded-full bg-[#f0f7fd] text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
-              {t("চলমান মানবিক তহবিল", "Active Humanitarian Funds")}
+            <span className="inline-block px-3.5 py-1 rounded-full bg-[#f0f7fd] text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
+              চলমান মানবিক তহবিল
             </span>
             <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75]">
-              {t("আমাদের প্রকল্প ও কর্মসূচি", "Our Programs & Initiatives")}
+              জরুরি অনুদান প্রকল্প ও কার্যক্রম
             </h2>
           </div>
           <Link
             href="/donate"
-            className="inline-flex items-center gap-1.5 text-[#2375b8] hover:text-[#0f4c75] font-july font-bold text-sm sm:text-base"
+            className="inline-flex items-center gap-1.5 text-[#2375b8] hover:text-[#0f4c75] font-july font-bold text-sm sm:text-base group"
           >
-            <span>{t("আরও দেখুন", "View All Programs")}</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>সকল প্রকল্প দেখুন ({toBnDigits(campaigns.length)})</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
           </Link>
         </div>
 
         {/* Category Filter Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6">
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
           {categories.map((cat) => (
             <button
               key={cat.id}
               type="button"
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-4 py-2 rounded-full font-july font-bold text-sm whitespace-nowrap transition cursor-pointer ${
+              className={`px-4 py-2 rounded-xl font-july font-bold text-xs sm:text-sm whitespace-nowrap transition cursor-pointer border ${
                 activeCategory === cat.id
-                  ? "bg-[#2375b8] text-white shadow-sm"
-                  : "bg-[#f0f7fd] text-slate-700 hover:bg-sky-100"
+                  ? "bg-[#2375b8] text-white border-[#2375b8] shadow-sm"
+                  : "bg-white text-slate-700 border-slate-200 hover:border-sky-200 hover:bg-sky-50/50"
               }`}
             >
-              {t(cat.bn, cat.en)}
+              {cat.bn}
             </button>
           ))}
         </div>
 
+        {/* Campaign Cards Grid */}
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -243,83 +457,218 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* ZAKAT SELF-RELIANCE CALLOUT BANNER */}
-      <section className="py-6 px-4">
-        <div className="max-w-7xl mx-auto rounded-3xl bg-gradient-to-r from-[#0f4c75] via-[#1b649e] to-[#1788bf] p-8 sm:p-12 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/20 text-amber-200 text-xs font-july font-bold">
-              <ShieldCheck className="w-4 h-4" />
-              <span>
-                {t(
-                  "শরীয়াহ বোর্ড অনুমোদিত যাকাত ব্যবস্থাপনা",
-                  "Independent Shariah Board Supervised"
-                )}
-              </span>
+      {/* 6. ZAKAT SELF-RELIANCE SPOTLIGHT BANNER */}
+      <section className="px-4">
+        <div className="max-w-7xl mx-auto rounded-3xl bg-gradient-to-r from-[#0b2942] via-[#0f4c75] to-[#1788bf] p-7 sm:p-12 text-white shadow-xl shadow-sky-950/20 relative overflow-hidden">
+          {/* Subtle Islamic Motif Background Decoration */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="space-y-4 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-200 text-xs font-july font-bold">
+                <ShieldCheck className="w-4 h-4 text-amber-400" />
+                <span>স্বাধীন শরীয়াহ বোর্ড অনুমোদিত যাকাত ব্যবস্থাপনা</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-july font-bold leading-snug">
+                আপনার যাকাত বদলে দিতে পারে একটি দরিদ্র পরিবারের চিরস্থায়ী ভাগ্য
+              </h2>
+              <p className="text-sky-100 text-sm sm:text-base leading-relaxed">
+                মুষ্টিমেয় ত্রাণ নয়, বরং সেলাই মেশিন, ভ্যানগাড়ি, গবাদিপশু ও ক্ষুদ্র ব্যবসার পুঁজি প্রদানের মাধ্যমে আমরা অসচ্ছল পরিবারকে স্থায়ীভাবে স্বাবলম্বী করে তুলি।
+              </p>
+
+              {/* 3 Value Checkmarks */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2 text-xs sm:text-sm text-sky-100">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>১০০% হকদার নির্বাচন</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>স্থায়ী জীবিকা সরঞ্জাম</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>ভিডিও অডিট ও প্রমাণ</span>
+                </div>
+              </div>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-july font-bold">
-              {t(
-                "আপনার যাকাত হোক দারিদ্র্য বিমোচন ও স্বাবলম্বীকরণের হাতিয়ার",
-                "Make Your Zakat a Catalyst for Permanent Self-Reliance"
-              )}
-            </h2>
-            <p className="text-sky-100 text-sm sm:text-base">
-              {t(
-                "সহজ যাকাত ক্যালকুলেটরের মাধ্যমে নিসাব অনুযায়ী আপনার প্রদেয় যাকাত হিসাব করুন এবং সেলাই মেশিন, ভ্যানগাড়ি ও ক্ষুদ্র ব্যবসার মাধ্যমে অসহায় পরিবারকে স্বাবলম্বী করুন।",
-                "Use our interactive Zakat Calculator to compute your 2.5% obligation accurately and empower impoverished families with sustainable livelihoods."
-              )}
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
-            <Link
-              href="/zakat-calculator"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-july font-bold shadow-md transition"
-            >
-              <Calculator className="w-5 h-5" />
-              <span>{t("যাকাত ক্যালকুলেটর", "Zakat Calculator")}</span>
-            </Link>
-            <Link
-              href="/donate/zakat"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-sky-50 text-[#0f4c75] font-july font-bold shadow-md transition"
-            >
-              <Heart className="w-5 h-5 text-[#2375b8] fill-[#2375b8]" />
-              <span>{t("যাকাত প্রদান করুন", "Pay Zakat Now")}</span>
-            </Link>
+
+            <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full sm:w-auto">
+              <Link
+                href="/zakat-calculator"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-july font-bold shadow-lg transition"
+              >
+                <Calculator className="w-5 h-5" />
+                <span>যাকাত হিসাব করুন</span>
+              </Link>
+              <Link
+                href="/donate/zakat"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-sky-50 text-[#0f4c75] font-july font-bold shadow-lg transition"
+              >
+                <Heart className="w-5 h-5 text-[#2375b8] fill-[#2375b8]" />
+                <span>যাকাত প্রদান করুন</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* NEWS & STORIES (মানবিক গল্প) */}
-      <section className="py-14 px-4 max-w-7xl mx-auto">
+      {/* 7. WHY TRUST US? (স্বচ্ছতা ও জবাবদিহিতা) */}
+      <section className="max-w-7xl mx-auto px-4">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className="inline-block px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-july font-bold text-xs sm:text-sm mb-2">
+            স্বচ্ছতা ও জবাবদিহিতা
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75]">
+            কেন ভ্রাতৃত্ব ফাউন্ডেশনে অনুদান দিবেন?
+          </h2>
+          <p className="text-slate-600 mt-2 text-sm sm:text-base">
+            আপনার কষ্টার্জিত প্রতিটি পয়সার সর্বোচ্চ আমানতদারি ও শতভাগ স্বচ্ছতা নিশ্চিতকরণে আমরা অঙ্গীকারবদ্ধ
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs space-y-3">
+            <div className="w-12 h-12 rounded-xl bg-sky-50 text-[#2375b8] flex items-center justify-center">
+              <BadgeCheck className="w-6 h-6" />
+            </div>
+            <h3 className="font-july font-bold text-lg text-[#0f4c75]">
+              সরকারি সমাজসেবা নিবন্ধিত
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              গণপ্রজাতন্ত্রী বাংলাদেশ সরকারের সমাজসেবা অধিদপ্তর এবং এনবিআর অনুমোদিত দাতব্য সংস্থা।
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs space-y-3">
+            <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <h3 className="font-july font-bold text-lg text-[#0f4c75]">
+              স্বাধীন শরীয়াহ বোর্ড
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              মুফতি ও ইসলামী স্কলারদের সার্বক্ষণিক তত্ত্বাবধানে যাকাত ও সাদাকাহর যথাযথ ব্যয় নিশ্চিতকরণ।
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs space-y-3">
+            <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+              <FileText className="w-6 h-6" />
+            </div>
+            <h3 className="font-july font-bold text-lg text-[#0f4c75]">
+              ডিজিটাল মানি রিসিট
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              প্রতিটি অনুদানের সাথে সাথে ট্যাক্স রেয়াত সুবিধাযুক্ত অফিশিয়াল ডিজিটাল রশিদ এসএমএস ও ইমেইলে প্রদান।
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs space-y-3">
+            <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+              <Video className="w-6 h-6" />
+            </div>
+            <h3 className="font-july font-bold text-lg text-[#0f4c75]">
+              সরাসরি ফিল্ড ভিডিও অডিট
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              প্রকল্প বাস্তবায়নের প্রতিটি মুহূর্তের সচিত্র ভিডিও ও মাঠপর্যায়ের অগ্রগতি প্রতিবেদন সরাসরি প্রকাশ।
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. FEATURED FIELD VIDEOS & DOCUMENTARIES */}
+      <section className="bg-gradient-to-b from-[#f4f9fd] to-[#FDFDFC] py-14 px-4 border-y border-sky-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-end justify-between gap-4 mb-8">
+            <div>
+              <span className="inline-block px-3.5 py-1 rounded-full bg-sky-100 text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
+                ভিডিও ডকুমেন্টারি
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75]">
+                মাঠপর্যায়ের কার্যক্রমের ভিডিও চিত্র
+              </h2>
+            </div>
+            <Link
+              href="/mastul-media"
+              className="inline-flex items-center gap-1.5 text-[#2375b8] font-july font-bold text-sm sm:text-base hover:underline group"
+            >
+              <span>সকল ভিডিও দেখুন</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {(data?.videos || []).slice(0, 3).map((vid) => (
+              <button
+                key={vid.id}
+                type="button"
+                onClick={() => setPlayingVideo(vid)}
+                className="group text-left bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 cursor-pointer"
+              >
+                <div className="relative h-52 bg-slate-900 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={
+                      vid.thumbnail_url ||
+                      `https://img.youtube.com/vi/${vid.youtube_id}/hqdefault.jpg`
+                    }
+                    alt={vid.title_bn}
+                    className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/35 flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-full bg-[#2375b8] group-hover:bg-rose-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition duration-300">
+                      <Play className="w-6 h-6 fill-white ml-0.5" />
+                    </div>
+                  </div>
+                  <span className="absolute bottom-3 right-3 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-xs text-white text-xs font-mono">
+                    {vid.duration}
+                  </span>
+                </div>
+                <div className="p-4">
+                  <h3 className="font-july font-bold text-base text-[#0f4c75] group-hover:text-[#2375b8] line-clamp-2 transition">
+                    {vid.title_bn}
+                  </h3>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. STORIES OF HOPE & RECENT NEWS (মানবিক গল্প) */}
+      <section className="max-w-7xl mx-auto px-4">
         <div className="flex items-end justify-between gap-4 mb-8">
           <div>
-            <span className="inline-block px-3 py-1 rounded-full bg-[#f0f7fd] text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
-              {t("পরিবর্তনের গল্প", "Impact Stories")}
+            <span className="inline-block px-3.5 py-1 rounded-full bg-[#f0f7fd] text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
+              পরিবর্তনের গল্প
             </span>
             <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75]">
-              {t("নিউজ & স্টোরিজ", "Humanitarian Stories")}
+              মানবিক গল্প ও মাঠপর্যায়ের সাফল্য
             </h2>
           </div>
           <Link
             href="/news-stories"
-            className="inline-flex items-center gap-1.5 text-[#2375b8] font-july font-bold text-sm sm:text-base hover:underline"
+            className="inline-flex items-center gap-1.5 text-[#2375b8] font-july font-bold text-sm sm:text-base hover:underline group"
           >
-            <span>{t("আরও দেখুন", "See More")}</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>আরও পড়ুন</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
           </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {(data?.stories || []).map((post) => (
+          {(data?.stories || []).slice(0, 3).map((post) => (
             <Link
               key={post.id}
               href={`/news-stories/${post.slug}`}
-              className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-lg transition flex flex-col"
+              className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex flex-col"
             >
               <div className="h-52 overflow-hidden bg-slate-100">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={post.cover_image}
-                  alt={t(post.title_bn, post.title_en)}
+                  alt={post.title_bn}
                   className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                 />
               </div>
@@ -330,15 +679,15 @@ export default function HomePage() {
                     <span>{formatDate(post.published_at, lang)}</span>
                   </div>
                   <h3 className="font-july font-bold text-lg text-[#0f4c75] group-hover:text-[#2375b8] transition line-clamp-2">
-                    {t(post.title_bn, post.title_en)}
+                    {post.title_bn}
                   </h3>
                   <p className="text-sm text-slate-600 mt-2 line-clamp-3">
-                    {t(post.excerpt_bn, post.excerpt_en)}
+                    {post.excerpt_bn}
                   </p>
                 </div>
                 <span className="inline-flex items-center gap-1 text-sm font-july font-bold text-[#2375b8]">
-                  {t("বিস্তারিত পড়ুন", "Read Story")}
-                  <ArrowRight className="w-4 h-4" />
+                  <span>বিস্তারিত পড়ুন</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
                 </span>
               </div>
             </Link>
@@ -346,93 +695,40 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FEATURED VIDEOS SECTION (আমাদের কার্যক্রম সম্পর্কে ভিডিও) */}
-      <section className="py-14 px-4 bg-[#f6f9fc] border-y border-sky-100">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-end justify-between gap-4 mb-8">
-            <div>
-              <span className="inline-block px-3 py-1 rounded-full bg-sky-100 text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
-                {t("ভিডিও ডকুমেন্টারি", "Field Documentaries")}
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75]">
-                {t("আমাদের কার্যক্রম সম্পর্কে ভিডিও", "Videos of Our Activities")}
-              </h2>
-            </div>
-            <Link
-              href="/mastul-media"
-              className="inline-flex items-center gap-1.5 text-[#2375b8] font-july font-bold text-sm sm:text-base hover:underline"
-            >
-              <span>{t("আরও দেখুন", "All Videos")}</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {(data?.videos || []).map((vid) => (
-              <button
-                key={vid.id}
-                type="button"
-                onClick={() => setPlayingVideo(vid)}
-                className="group text-left bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-xl transition cursor-pointer"
-              >
-                <div className="relative h-52 bg-slate-900 overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={
-                      vid.thumbnail_url ||
-                      `https://img.youtube.com/vi/${vid.youtube_id}/hqdefault.jpg`
-                    }
-                    alt={t(vid.title_bn, vid.title_en)}
-                    className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition duration-500"
-                  />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <div className="w-14 h-14 rounded-full bg-[#2375b8] group-hover:bg-rose-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition">
-                      <Play className="w-6 h-6 fill-white ml-0.5" />
-                    </div>
-                  </div>
-                  <span className="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/75 text-white text-xs font-mono">
-                    {vid.duration}
-                  </span>
-                </div>
-                <div className="p-4">
-                  <h3 className="font-july font-bold text-base text-[#0f4c75] group-hover:text-[#2375b8] line-clamp-2">
-                    {t(vid.title_bn, vid.title_en)}
-                  </h3>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* LATEST PRESS NEWS + LIVE VERIFIED DONORS */}
-      <section className="py-14 px-4 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left 8 cols: মাস্তুল নিউজ */}
+      {/* 10. RECENT NEWS + LIVE VERIFIED DONORS TICKER */}
+      <section className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left 8 cols: প্রেস রিলিজ ও সর্বশেষ সংবাদ */}
         <div className="lg:col-span-8 space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75]">
-              {t("সাম্প্রতিক সংবাদ ও আপডেট", "Latest News & Updates")}
-            </h2>
+            <div>
+              <span className="inline-block px-3 py-0.5 rounded-full bg-sky-50 text-[#2375b8] font-july font-bold text-xs mb-1">
+                প্রেস ও গণমাধ্যম
+              </span>
+              <h2 className="text-2xl font-july font-bold text-[#0f4c75]">
+                সাম্প্রতিক সংবাদ ও প্রেস বিজ্ঞপ্তি
+              </h2>
+            </div>
             <Link
               href="/news-stories"
               className="text-sm font-july font-bold text-[#2375b8] hover:underline"
             >
-              {t("আরও দেখুন", "View All")} →
+              সবগুলো দেখুন →
             </Link>
           </div>
+
           <div className="space-y-4">
-            {(data?.news || []).map((item) => (
+            {(data?.news || []).slice(0, 3).map((item) => (
               <Link
                 key={item.id}
                 href={`/news-stories/${item.slug}`}
-                className="flex flex-col sm:flex-row gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-sky-300 shadow-xs transition group"
+                className="flex flex-col sm:flex-row gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-sky-300 shadow-2xs hover:shadow-md transition-all group"
               >
-                <div className="sm:w-48 h-36 rounded-xl overflow-hidden bg-slate-100 shrink-0">
+                <div className="sm:w-44 h-32 rounded-xl overflow-hidden bg-slate-100 shrink-0">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={item.cover_image}
-                    alt={t(item.title_bn, item.title_en)}
-                    className="w-full h-full object-cover group-hover:scale-105 transition"
+                    alt={item.title_bn}
+                    className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                   />
                 </div>
                 <div className="flex-1 flex flex-col justify-between">
@@ -440,15 +736,16 @@ export default function HomePage() {
                     <span className="text-xs text-[#2375b8] font-july font-bold">
                       {formatDate(item.published_at, lang)} • {item.author_name}
                     </span>
-                    <h3 className="font-july font-bold text-lg text-[#0f4c75] group-hover:text-[#2375b8] mt-1">
-                      {t(item.title_bn, item.title_en)}
+                    <h3 className="font-july font-bold text-base sm:text-lg text-[#0f4c75] group-hover:text-[#2375b8] mt-1 transition">
+                      {item.title_bn}
                     </h3>
                     <p className="text-sm text-slate-600 mt-1 line-clamp-2">
-                      {t(item.excerpt_bn, item.excerpt_en)}
+                      {item.excerpt_bn}
                     </p>
                   </div>
-                  <span className="text-xs font-july font-bold text-[#2375b8] mt-2">
-                    {t("সম্পূর্ণ সংবাদ পড়ুন →", "Read Full News →")}
+                  <span className="text-xs font-july font-bold text-[#2375b8] mt-2 inline-flex items-center gap-1">
+                    <span>সম্পূর্ণ সংবাদ পড়ুন</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
                   </span>
                 </div>
               </Link>
@@ -456,34 +753,41 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Right 4 cols: Live Verified Donor Wall + Volunteer CTA */}
+        {/* Right 4 cols: Live Verified Donor Wall + Volunteer Invitation */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white rounded-2xl border border-sky-100 p-5 shadow-xs">
+          {/* Live Verified Donors Box */}
+          <div className="bg-white rounded-2xl border border-sky-100 p-5 shadow-2xs">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-july font-bold text-lg text-[#0f4c75]">
-                {t("সাম্প্রতিক অনুদানসমূহ", "Recent Verified Donations")}
-              </h3>
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+                <h3 className="font-july font-bold text-base sm:text-lg text-[#0f4c75]">
+                  লাইভ অনুদান আপডেট
+                </h3>
+              </div>
+              <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold">
+                ভেরিফাইড
+              </span>
             </div>
-            <div className="space-y-3 max-h-80 overflow-y-auto pr-1">
+
+            <div className="space-y-2.5 max-h-80 overflow-y-auto pr-1">
               {(data?.recent_donations || []).map((don) => (
                 <div
                   key={don.id}
-                  className="flex items-center justify-between gap-2 p-3 rounded-xl bg-[#f0f7fd]/70 border border-sky-100 text-sm"
+                  className="flex items-center justify-between gap-2 p-3 rounded-xl bg-[#f0f7fd]/70 border border-sky-100 text-sm hover:bg-sky-50 transition"
                 >
                   <div className="min-w-0">
                     <div className="font-july font-bold text-slate-800 truncate">
                       {don.donor_name}
                     </div>
                     <div className="text-xs text-slate-500 truncate">
-                      {t(don.campaign_title_bn, don.campaign_title_en)}
+                      {don.campaign_title_bn}
                     </div>
                   </div>
                   <div className="text-right shrink-0">
                     <div className="font-july font-bold text-[#2375b8]">
-                      {formatBDT(don.amount, lang)}
+                      {formatBDT(don.amount, "bn")}
                     </div>
-                    <div className="text-[11px] uppercase text-slate-400">
+                    <div className="text-[10px] uppercase font-mono text-slate-400">
                       {don.payment_method}
                     </div>
                   </div>
@@ -492,40 +796,74 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="rounded-2xl bg-gradient-to-br from-[#2375b8] to-[#0f4c75] p-6 text-white space-y-3">
-            <UserPlus className="w-8 h-8 text-sky-300" />
+          {/* Volunteer CTA Card */}
+          <div className="rounded-2xl bg-gradient-to-br from-[#2375b8] to-[#0b2942] p-6 text-white space-y-3.5 shadow-lg">
+            <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center text-sky-200">
+              <UserPlus className="w-6 h-6" />
+            </div>
             <h3 className="font-july font-bold text-xl">
-              {t("স্বেচ্ছাসেবক হিসেবে যুক্ত হোন", "Join as a Volunteer")}
+              স্বেচ্ছাসেবক হিসেবে যুক্ত হোন
             </h3>
-            <p className="text-sm text-sky-100">
-              {t(
-                "দেশব্যাপী ৬৪ জেলায় ত্রাণ বিতরণ, মেডিকেল ক্যাম্প ও পথশিশু শিক্ষায় আমাদের সাথে কাঁধে কাঁধ মিলিয়ে কাজ করুন।",
-                "Join thousands of dedicated youth volunteers serving across all 64 districts of Bangladesh."
-              )}
+            <p className="text-xs sm:text-sm text-sky-100 leading-relaxed">
+              দেশব্যাপী ৬৪ জেলায় ত্রাণ বিতরণ, মেডিকেল ক্যাম্প ও সুবিধাবঞ্চিত শিশুদের শিক্ষায় আমাদের সাথে যুক্ত হয়ে কাজ করুন।
             </p>
             <Link
               href="/be-a-volunteer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-[#0f4c75] font-july font-bold text-sm hover:bg-sky-50 transition"
+              className="inline-flex w-full items-center justify-center gap-2 py-2.5 rounded-xl bg-white text-[#0f4c75] font-july font-bold text-sm hover:bg-sky-50 shadow-md transition"
             >
-              <span>{t("নিবন্ধন ফর্ম পূরণ করুন", "Register Now")}</span>
+              <span>নিবন্ধন ফর্ম পূরণ করুন</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Video Lightbox Modal */}
+      {/* 11. 24/7 HOTLINE HELPLINE STRIP */}
+      <section className="max-w-7xl mx-auto px-4">
+        <div className="rounded-2xl bg-gradient-to-r from-sky-50 via-blue-50 to-indigo-50 border border-sky-200/80 p-5 sm:p-7 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5 text-center sm:text-left">
+            <div className="w-12 h-12 rounded-2xl bg-[#2375b8] text-white flex items-center justify-center shrink-0 shadow-md">
+              <PhoneCall className="w-6 h-6" />
+            </div>
+            <div>
+              <h4 className="font-july font-bold text-base sm:text-lg text-[#0f4c75]">
+                যে কোনো সহায়তা বা তথ্য জানতে কল করুন
+              </h4>
+              <p className="text-xs sm:text-sm text-slate-600">
+                আমাদের প্রতিনিধি সার্বক্ষণিক আপনার সেবায় নিয়োজিত
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <a
+              href={`tel:${settings.phone_hotline}`}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2375b8] hover:bg-[#1b619c] text-white font-july font-bold text-sm shadow-md transition"
+            >
+              <span>{settings.phone_hotline}</span>
+            </a>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-700 font-july font-bold text-sm hover:bg-slate-50 transition"
+            >
+              <span>অফিস ঠিকানা</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 12. VIDEO LIGHTBOX MODAL */}
       {playingVideo && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-slate-950 rounded-2xl overflow-hidden max-w-4xl w-full shadow-2xl border border-white/15">
             <div className="flex items-center justify-between px-5 py-3 border-b border-white/10 text-white">
               <h3 className="font-july font-bold text-base truncate">
-                {t(playingVideo.title_bn, playingVideo.title_en)}
+                {playingVideo.title_bn}
               </h3>
               <button
                 type="button"
                 onClick={() => setPlayingVideo(null)}
                 className="p-1.5 rounded-lg hover:bg-white/10 text-slate-300 cursor-pointer"
+                aria-label="Close video"
               >
                 <X className="w-5 h-5" />
               </button>
