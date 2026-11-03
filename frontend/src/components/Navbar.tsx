@@ -8,7 +8,6 @@ import {
   Menu,
   X,
   Phone,
-  ShieldCheck,
   Calculator,
   UserPlus,
   Lock,
@@ -25,6 +24,7 @@ export default function Navbar() {
     { href: "/donate", label: "কার্যক্রমসমূহ" },
     { href: "/zakat-calculator", label: "যাকাত ক্যালকুলেটর" },
     { href: "/about-mastul", label: "আমাদের সম্পর্কে" },
+    { href: "/be-a-volunteer", label: "স্বেচ্ছাসেবক হোন" },
     { href: "/news-stories", label: "নিউজ & স্টোরিজ" },
     { href: "/mastul-media", label: "ভিডিও গ্যালারি" },
     { href: "/contact", label: "যোগাযোগ" },
@@ -37,56 +37,9 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full no-print">
-      {/* Top Utility Bar - Ultra sleek & thin */}
-      <div className="bg-[#0b2942] text-white text-[11px] sm:text-xs py-1 px-3 sm:px-4 border-b border-white/5">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
-          <div className="flex items-center gap-3">
-            <a
-              href={`tel:${settings.phone_hotline}`}
-              className="inline-flex items-center gap-1.5 text-sky-200 hover:text-white transition"
-            >
-              <Phone className="w-3 h-3 text-sky-400" />
-              <span>{settings.phone_hotline}</span>
-            </a>
-            <Link
-              href="/gov-tax-rebate"
-              className="hidden md:inline-flex items-center gap-1 text-amber-200 hover:text-amber-100"
-            >
-              <ShieldCheck className="w-3 h-3 text-amber-400" />
-              <span>অনুদানে আয়কর রেয়াত (Tax Rebate)</span>
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-2 sm:gap-3 text-[11px] sm:text-xs">
-            <Link
-              href="/be-a-volunteer"
-              className="inline-flex items-center gap-1 hover:text-sky-200 transition"
-            >
-              <UserPlus className="w-3 h-3 text-sky-400" />
-              <span>স্বেচ্ছাসেবক হোন</span>
-            </Link>
-            <span className="text-white/20">|</span>
-            <Link
-              href="/shariah-board"
-              className="hidden sm:inline-flex items-center gap-1 hover:text-sky-200 transition"
-            >
-              <span>শরিয়াহ বোর্ড</span>
-            </Link>
-            <span className="hidden sm:inline text-white/20">|</span>
-            <Link
-              href="/admin"
-              className="inline-flex items-center gap-1 bg-white/10 hover:bg-white/20 px-2 py-0.5 rounded text-[10px] sm:text-[11px] transition"
-            >
-              <Lock className="w-2.5 h-2.5 text-sky-300" />
-              <span>অ্যাডমিন</span>
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Navigation - Sleek, thin header (h-14 / 56px) */}
+      {/* Main Navigation - Clean, modern, slim single-tier header */}
       <div className="bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 sm:h-15 flex items-center justify-between gap-2 sm:gap-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
           {/* Logo without any border or box */}
           <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group shrink-0">
             <div className="w-8 h-8 sm:w-10 sm:h-10 shrink-0 flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
@@ -108,12 +61,12 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Links */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-1.5 rounded-lg text-sm font-july font-bold transition ${
+                className={`px-2.5 xl:px-3 py-1.5 rounded-lg text-[13px] xl:text-sm font-july font-bold transition ${
                   isActive(item.href)
                     ? "bg-[#f0f7fd] text-[#2375b8]"
                     : "text-slate-700 hover:text-[#2375b8] hover:bg-slate-50"
@@ -147,21 +100,45 @@ export default function Navbar() {
 
         {/* Mobile Drawer */}
         {mobileOpen && (
-          <div className="lg:hidden border-t border-slate-100 bg-white px-4 py-3 space-y-1 shadow-lg animate-in fade-in duration-150">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                className={`block px-3 py-2 rounded-lg font-july font-bold text-sm ${
-                  isActive(item.href)
-                    ? "bg-[#f0f7fd] text-[#2375b8]"
-                    : "text-slate-700 hover:bg-slate-50"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="lg:hidden border-t border-slate-100 bg-white px-4 py-3 space-y-2 shadow-xl animate-in fade-in duration-150">
+            {/* Quick Hotline Call Card */}
+            <a
+              href={`tel:${settings.phone_hotline}`}
+              className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-sky-50 to-blue-50 text-[#0f4c75] border border-sky-100 shadow-2xs"
+            >
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-lg bg-[#2375b8] text-white flex items-center justify-center">
+                  <Phone className="w-3.5 h-3.5" />
+                </div>
+                <div>
+                  <span className="text-[10px] text-slate-500 block">২৪/৭ হটলাইন সহায়তা</span>
+                  <span className="font-bold text-xs text-[#0f4c75]">{settings.phone_hotline}</span>
+                </div>
+              </div>
+              <span className="text-[11px] font-july font-bold text-[#2375b8] bg-white px-2 py-1 rounded-md border border-sky-200">
+                কল করুন
+              </span>
+            </a>
+
+            {/* Navigation Links */}
+            <div className="space-y-1 pt-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`block px-3 py-2 rounded-lg font-july font-bold text-sm ${
+                    isActive(item.href)
+                      ? "bg-[#f0f7fd] text-[#2375b8]"
+                      : "text-slate-700 hover:bg-slate-50"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            {/* Quick Actions (Zakat & Volunteer) */}
             <div className="pt-2 border-t border-slate-100 grid grid-cols-2 gap-2">
               <Link
                 href="/zakat-calculator"
@@ -178,6 +155,25 @@ export default function Navbar() {
               >
                 <UserPlus className="w-3.5 h-3.5" />
                 <span>স্বেচ্ছাসেবক</span>
+              </Link>
+            </div>
+
+            {/* Discreet Admin Login at the very bottom of the drawer */}
+            <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400 px-1">
+              <Link
+                href="/gov-tax-rebate"
+                onClick={() => setMobileOpen(false)}
+                className="hover:text-slate-600 transition"
+              >
+                আয়কর রেয়াত
+              </Link>
+              <Link
+                href="/admin"
+                onClick={() => setMobileOpen(false)}
+                className="inline-flex items-center gap-1 text-slate-400 hover:text-slate-600 transition"
+              >
+                <Lock className="w-3 h-3" />
+                <span>অ্যাডমিন পোর্টাল</span>
               </Link>
             </div>
           </div>
