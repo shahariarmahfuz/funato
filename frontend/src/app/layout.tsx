@@ -20,6 +20,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="bn">
+      <head>
+        {/* Preload critical Bangla fonts for instant rendering */}
+        <link
+          rel="preload"
+          href="/fonts/July/July-Bold.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Kalpurush/kalpurush.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="min-h-screen bg-[#FDFDFC] text-[#1b1b18] antialiased">
         <LanguageProvider>{children}</LanguageProvider>
       </body>

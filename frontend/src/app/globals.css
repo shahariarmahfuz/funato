@@ -2,10 +2,15 @@
 
 /* =========================================================
    July Font Family (BCC Official Unicode Display & UI Font)
+   With local() system check + high-compression WOFF2 + TTF fallback
    ========================================================= */
 @font-face {
   font-family: "July";
-  src: url("/fonts/July/July-Regular.ttf") format("truetype");
+  src: local("July"),
+       local("July Regular"),
+       local("July-Regular"),
+       url("/fonts/July/July-Regular.woff2") format("woff2"),
+       url("/fonts/July/July-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -13,7 +18,10 @@
 
 @font-face {
   font-family: "July";
-  src: url("/fonts/July/July-Italic.ttf") format("truetype");
+  src: local("July Italic"),
+       local("July-Italic"),
+       url("/fonts/July/July-Italic.woff2") format("woff2"),
+       url("/fonts/July/July-Italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -21,7 +29,10 @@
 
 @font-face {
   font-family: "July";
-  src: url("/fonts/July/July-Bold.ttf") format("truetype");
+  src: local("July Bold"),
+       local("July-Bold"),
+       url("/fonts/July/July-Bold.woff2") format("woff2"),
+       url("/fonts/July/July-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -29,7 +40,10 @@
 
 @font-face {
   font-family: "July";
-  src: url("/fonts/July/July-Bold-Italic.ttf") format("truetype");
+  src: local("July Bold Italic"),
+       local("July-Bold-Italic"),
+       url("/fonts/July/July-Bold-Italic.woff2") format("woff2"),
+       url("/fonts/July/July-Bold-Italic.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
@@ -37,10 +51,15 @@
 
 /* =========================================================
    Kalpurush Font Family (Classic Readable Bangla Body Font)
+   With local() system check + high-compression WOFF2 + TTF fallback
    ========================================================= */
 @font-face {
   font-family: "Kalpurush";
-  src: url("/fonts/Kalpurush/kalpurush.ttf") format("truetype");
+  src: local("Kalpurush"),
+       local("Kalpurush Regular"),
+       local("kalpurush"),
+       url("/fonts/Kalpurush/kalpurush.woff2") format("woff2"),
+       url("/fonts/Kalpurush/kalpurush.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
