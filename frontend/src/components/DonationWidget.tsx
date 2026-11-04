@@ -134,9 +134,9 @@ export default function DonationWidget({
   };
 
   return (
-    <div className="bg-white rounded-none shadow-md border border-sky-100 overflow-hidden w-full max-w-full">
+    <div className="bg-white rounded-none shadow-sm sm:shadow-md border-y sm:border border-sky-100 overflow-hidden w-full max-w-full">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#0f4c75] via-[#2375b8] to-[#1788bf] px-5 sm:px-6 py-4 text-white">
+      <div className="bg-gradient-to-r from-[#0f4c75] via-[#2375b8] to-[#1788bf] px-4 sm:px-6 py-4 text-white">
         <div className="flex items-center justify-between gap-2">
           <h2 className="text-lg sm:text-xl font-july font-bold">
             {lockedCampaign
@@ -150,7 +150,7 @@ export default function DonationWidget({
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4">
+      <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4">
         {/* Fund Selection */}
         {!lockedCampaign && (
           <div>

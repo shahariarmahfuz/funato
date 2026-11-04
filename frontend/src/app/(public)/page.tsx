@@ -95,16 +95,16 @@ export default function HomePage() {
       </div>
 
       {/* 2. HERO SECTION: Dynamic Carousel + Compact Donation Widget */}
-      <section className="relative -mt-8 pt-6 px-3 sm:px-4 overflow-hidden w-full max-w-full">
+      <section className="relative -mt-8 pt-4 sm:pt-6 px-0 sm:px-4 overflow-hidden w-full max-w-full">
         {/* Soft Background Ambient Light Gradients */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-200/40 rounded-full blur-3xl -z-10 pointer-events-none" />
         <div className="absolute top-1/3 right-10 w-80 h-80 bg-blue-100/50 rounded-full blur-3xl -z-10 pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start w-full">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-start w-full">
           {/* Left 7 Columns: Responsive Hero Banner & Feature Cards */}
           <div className="lg:col-span-7 flex flex-col min-w-0 w-full">
             {/* HERO BANNER: Strict 16:9 on Mobile, 2.2:1 on Desktop */}
-            <div className="relative rounded-none overflow-hidden shadow-sm border border-slate-200/80 bg-[#082238] aspect-[16/9] lg:aspect-[2.2/1] w-full">
+            <div className="relative rounded-none overflow-hidden shadow-sm border-y sm:border border-slate-200/80 bg-[#082238] aspect-[16/9] lg:aspect-[2.2/1] w-full">
               {currentSlide ? (
                 <>
                   {/* ============================================================
@@ -319,9 +319,9 @@ export default function HomePage() {
             </div>
 
             {/* BOTTOM FEATURE CARDS (TRUST INDICATORS) */}
-            {/* Mobile: Compact 2-column grid | Desktop: Single horizontal row of 4 */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5 mt-2.5 sm:mt-3 w-full">
-              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-none bg-white border border-slate-200/80 shadow-2xs hover:border-emerald-300 transition-colors min-w-0">
+            {/* Mobile: Edge-to-edge 2x2 grid with 1px border dividers | Desktop: Single horizontal row of 4 */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-slate-200/80 border-y sm:border border-slate-200/80 w-full sm:gap-2.5 sm:bg-transparent sm:border-0 mt-2 sm:mt-3">
+              <div className="flex items-center gap-2 py-2 px-3 bg-white sm:border sm:border-slate-200/80 sm:shadow-2xs min-w-0">
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-none bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
@@ -330,7 +330,7 @@ export default function HomePage() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-none bg-white border border-slate-200/80 shadow-2xs hover:border-sky-300 transition-colors min-w-0">
+              <div className="flex items-center gap-2 py-2 px-3 bg-white sm:border sm:border-slate-200/80 sm:shadow-2xs min-w-0">
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-none bg-sky-50 text-[#2375b8] flex items-center justify-center shrink-0">
                   <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
@@ -339,7 +339,7 @@ export default function HomePage() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-none bg-white border border-slate-200/80 shadow-2xs hover:border-amber-300 transition-colors min-w-0">
+              <div className="flex items-center gap-2 py-2 px-3 bg-white sm:border sm:border-slate-200/80 sm:shadow-2xs min-w-0">
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-none bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
                   <BadgeCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
@@ -348,7 +348,7 @@ export default function HomePage() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-none bg-white border border-slate-200/80 shadow-2xs hover:border-purple-300 transition-colors min-w-0">
+              <div className="flex items-center gap-2 py-2 px-3 bg-white sm:border sm:border-slate-200/80 sm:shadow-2xs min-w-0">
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-none bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
                   <Video className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
@@ -424,8 +424,8 @@ export default function HomePage() {
       </section>
 
       {/* 6. ZAKAT SELF-RELIANCE SPOTLIGHT BANNER */}
-      <section className="px-4">
-        <div className="max-w-7xl mx-auto rounded-none bg-gradient-to-r from-[#0b2942] via-[#0f4c75] to-[#1788bf] p-7 sm:p-12 text-white shadow-md relative overflow-hidden">
+      <section className="px-0 sm:px-4">
+        <div className="max-w-7xl mx-auto rounded-none bg-gradient-to-r from-[#0b2942] via-[#0f4c75] to-[#1788bf] p-6 sm:p-12 text-white shadow-md border-y sm:border border-white/10 relative overflow-hidden">
           {/* Subtle Islamic Motif Background Decoration */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-2xl pointer-events-none" />
 
@@ -785,8 +785,8 @@ export default function HomePage() {
       </section>
 
       {/* 11. 24/7 HOTLINE HELPLINE STRIP */}
-      <section className="max-w-7xl mx-auto px-4">
-        <div className="rounded-none bg-gradient-to-r from-sky-50 via-blue-50 to-indigo-50 border border-sky-200/80 p-5 sm:p-7 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <section className="max-w-7xl mx-auto px-0 sm:px-4">
+        <div className="rounded-none bg-gradient-to-r from-sky-50 via-blue-50 to-indigo-50 border-y sm:border border-sky-200/80 p-5 sm:p-7 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3.5 text-center sm:text-left">
             <div className="w-12 h-12 rounded-sm bg-[#2375b8] text-white flex items-center justify-center shrink-0 shadow-sm">
               <PhoneCall className="w-6 h-6" />
