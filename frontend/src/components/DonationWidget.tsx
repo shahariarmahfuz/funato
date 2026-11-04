@@ -134,7 +134,7 @@ export default function DonationWidget({
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl shadow-sky-900/10 border border-sky-100 overflow-hidden w-full max-w-full">
+    <div className="bg-white rounded-none shadow-md border border-sky-100 overflow-hidden w-full max-w-full">
       {/* Header */}
       <div className="bg-gradient-to-r from-[#0f4c75] via-[#2375b8] to-[#1788bf] px-5 sm:px-6 py-4 text-white">
         <div className="flex items-center justify-between gap-2">
@@ -160,7 +160,7 @@ export default function DonationWidget({
             <select
               value={selectedSlug}
               onChange={(e) => handleCampaignChange(e.target.value)}
-              className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 focus:border-[#2375b8] focus:bg-white focus:outline-none"
+              className="w-full rounded-sm border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 focus:border-[#2375b8] focus:bg-white focus:outline-none"
             >
               {campaigns.map((c) => (
                 <option key={c.id} value={c.slug}>
@@ -184,7 +184,7 @@ export default function DonationWidget({
                   key={preset}
                   type="button"
                   onClick={() => setAmount(String(preset))}
-                  className={`py-2 px-2 rounded-xl font-july font-bold text-xs sm:text-sm border transition cursor-pointer ${
+                  className={`py-2 px-2 rounded-sm font-july font-bold text-xs sm:text-sm border transition cursor-pointer ${
                     selected
                       ? "bg-[#2375b8] text-white border-[#2375b8] shadow-xs"
                       : "bg-[#f0f7fd] text-[#0f4c75] border-sky-200 hover:border-[#2375b8]"
@@ -207,18 +207,18 @@ export default function DonationWidget({
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="অন্যান্য পরিমাণ লিখুন"
-              className="w-full rounded-xl border border-slate-300 pl-8 pr-4 py-2.5 text-base font-bold text-slate-900 focus:border-[#2375b8] focus:outline-none"
+              className="w-full rounded-sm border border-slate-300 pl-8 pr-4 py-2.5 text-base font-bold text-slate-900 focus:border-[#2375b8] focus:outline-none"
             />
           </div>
         </div>
 
         {/* Checkout Mode Toggle */}
         <div>
-          <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-slate-100 text-xs font-july font-bold">
+          <div className="grid grid-cols-2 gap-2 p-1 rounded-sm bg-slate-100 text-xs font-july font-bold">
             <button
               type="button"
               onClick={() => setCheckoutMode("instant")}
-              className={`py-2 rounded-lg flex items-center justify-center gap-1.5 transition cursor-pointer ${
+              className={`py-2 rounded-sm flex items-center justify-center gap-1.5 transition cursor-pointer ${
                 checkoutMode === "instant"
                   ? "bg-white text-[#2375b8] shadow-xs"
                   : "text-slate-600"
@@ -230,7 +230,7 @@ export default function DonationWidget({
             <button
               type="button"
               onClick={() => setCheckoutMode("manual")}
-              className={`py-2 rounded-lg flex items-center justify-center gap-1.5 transition cursor-pointer ${
+              className={`py-2 rounded-sm flex items-center justify-center gap-1.5 transition cursor-pointer ${
                 checkoutMode === "manual"
                   ? "bg-white text-[#2375b8] shadow-xs"
                   : "text-slate-600"
@@ -254,7 +254,7 @@ export default function DonationWidget({
               key={pm.id}
               type="button"
               onClick={() => setPaymentMethod(pm.id)}
-              className={`py-1.5 px-1 sm:px-2 rounded-lg text-[11px] sm:text-xs font-july font-bold border transition cursor-pointer truncate ${
+              className={`py-1.5 px-1 sm:px-2 rounded-sm text-[11px] sm:text-xs font-july font-bold border transition cursor-pointer truncate ${
                 paymentMethod === pm.id
                   ? `${pm.color} ring-2 ring-[#2375b8]/40`
                   : "border-slate-200 text-slate-600 bg-white hover:bg-slate-50"
@@ -267,7 +267,7 @@ export default function DonationWidget({
 
         {/* Manual TrxID Fields */}
         {checkoutMode === "manual" && (
-          <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 space-y-2.5 text-xs">
+          <div className="p-3 rounded-sm bg-amber-50 border border-amber-200 space-y-2.5 text-xs">
             <p className="text-amber-900 font-medium">
               প্রথমে আমাদের নাম্বারে ({settings.mobile_banking?.[0]?.number || "01730482278"}) টাকা পাঠিয়ে নিচে TrxID দিন:
             </p>
@@ -277,7 +277,7 @@ export default function DonationWidget({
                 value={senderNumber}
                 onChange={(e) => setSenderNumber(e.target.value)}
                 placeholder="প্রেরকের নম্বর (যেমন 017...)"
-                className="rounded-lg border border-amber-300 bg-white px-3 py-2 text-sm text-slate-800"
+                className="rounded-sm border border-amber-300 bg-white px-3 py-2 text-sm text-slate-800"
               />
               <input
                 type="text"
@@ -285,7 +285,7 @@ export default function DonationWidget({
                 value={transactionId}
                 onChange={(e) => setTransactionId(e.target.value)}
                 placeholder="ট্রানজেকশন আইডি (TrxID) *"
-                className="rounded-lg border border-amber-300 bg-white px-3 py-2 text-sm text-slate-800"
+                className="rounded-sm border border-amber-300 bg-white px-3 py-2 text-sm text-slate-800"
               />
             </div>
           </div>
@@ -303,7 +303,7 @@ export default function DonationWidget({
               value={donorName}
               onChange={(e) => setDonorName(e.target.value)}
               placeholder="আপনার নাম লিখুন"
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-sm text-slate-900 focus:border-[#2375b8] focus:outline-none"
+              className="w-full rounded-sm border border-slate-300 px-3.5 py-2 text-sm text-slate-900 focus:border-[#2375b8] focus:outline-none"
             />
           </div>
           <div>
@@ -316,7 +316,7 @@ export default function DonationWidget({
               value={donorPhone}
               onChange={(e) => setDonorPhone(e.target.value)}
               placeholder="01XXXXXXXXX"
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-sm text-slate-900 focus:border-[#2375b8] focus:outline-none"
+              className="w-full rounded-sm border border-slate-300 px-3.5 py-2 text-sm text-slate-900 focus:border-[#2375b8] focus:outline-none"
             />
           </div>
         </div>
@@ -328,14 +328,14 @@ export default function DonationWidget({
               value={donorEmail}
               onChange={(e) => setDonorEmail(e.target.value)}
               placeholder="ইমেইল (ঐচ্ছিক - রশিদের জন্য)"
-              className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm text-slate-900 focus:border-[#2375b8] focus:outline-none"
+              className="w-full rounded-sm border border-slate-200 px-3.5 py-2 text-sm text-slate-900 focus:border-[#2375b8] focus:outline-none"
             />
             <input
               type="text"
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="দোয়া বা মন্তব্য (ঐচ্ছিক)"
-              className="w-full rounded-xl border border-slate-200 px-3.5 py-2 text-sm text-slate-900 focus:border-[#2375b8] focus:outline-none"
+              className="w-full rounded-sm border border-slate-200 px-3.5 py-2 text-sm text-slate-900 focus:border-[#2375b8] focus:outline-none"
             />
           </div>
         )}
@@ -353,7 +353,7 @@ export default function DonationWidget({
         </label>
 
         {error && (
-          <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium">
+          <div className="p-3 rounded-sm bg-rose-50 border border-rose-200 text-rose-700 text-xs font-medium">
             {error}
           </div>
         )}
@@ -361,7 +361,7 @@ export default function DonationWidget({
         <button
           type="submit"
           disabled={submitting}
-          className="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-[#2375b8] to-[#1788bf] hover:from-[#1b619c] hover:to-[#1374a6] text-white font-july font-bold text-base shadow-lg shadow-sky-600/25 flex items-center justify-center gap-2 transition disabled:opacity-60 cursor-pointer"
+          className="w-full py-3.5 px-5 rounded-sm bg-gradient-to-r from-[#2375b8] to-[#1788bf] hover:from-[#1b619c] hover:to-[#1374a6] text-white font-july font-bold text-base shadow-md flex items-center justify-center gap-2 transition disabled:opacity-60 cursor-pointer"
         >
           {submitting ? (
             <>

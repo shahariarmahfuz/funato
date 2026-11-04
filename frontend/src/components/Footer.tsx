@@ -47,10 +47,10 @@ export default function Footer() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* কলাম ১: সাদাকা ও সাধারণ ব্যাংক হিসাব */}
-            <div className="bg-white rounded-2xl p-6 shadow-xs border border-sky-100 flex flex-col justify-between">
+            <div className="bg-white rounded-none p-6 shadow-xs border border-sky-100 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-11 h-11 rounded-xl bg-sky-50 text-[#2375b8] flex items-center justify-center">
+                  <div className="w-11 h-11 rounded-sm bg-sky-50 text-[#2375b8] flex items-center justify-center">
                     <Building2 className="w-6 h-6" />
                   </div>
                   <div>
@@ -62,7 +62,7 @@ export default function Footer() {
                     </p>
                   </div>
                 </div>
-                <div className="space-y-2 text-sm text-slate-700 bg-slate-50 rounded-xl p-4 border border-slate-100">
+                <div className="space-y-2 text-sm text-slate-700 bg-slate-50 rounded-sm p-4 border border-slate-100">
                   <div className="font-july font-bold text-base text-[#2375b8]">
                     {sadaqah?.bank_name}
                   </div>
@@ -70,7 +70,7 @@ export default function Footer() {
                     <span className="text-slate-500">হিসাবের নাম:</span>{" "}
                     <span className="font-semibold">{sadaqah?.acc_name}</span>
                   </div>
-                  <div className="flex items-center justify-between gap-2 bg-white px-3 py-2 rounded-lg border border-slate-200">
+                  <div className="flex items-center justify-between gap-2 bg-white px-3 py-2 rounded-sm border border-slate-200">
                     <div>
                       <span className="text-xs text-slate-400 block">হিসাব নম্বর:</span>
                       <span className="font-mono font-bold text-slate-900">
@@ -80,7 +80,7 @@ export default function Footer() {
                     <button
                       type="button"
                       onClick={() => copyText(sadaqah?.acc_no || "", "sadaqah")}
-                      className="text-xs px-2.5 py-1.5 rounded-md bg-sky-50 hover:bg-sky-100 text-[#2375b8] font-july font-bold inline-flex items-center gap-1 cursor-pointer"
+                      className="text-xs px-2.5 py-1.5 rounded-sm bg-sky-50 hover:bg-sky-100 text-[#2375b8] font-july font-bold inline-flex items-center gap-1 cursor-pointer"
                     >
                       {copiedKey === "sadaqah" ? (
                         <>
@@ -105,10 +105,10 @@ export default function Footer() {
             </div>
 
             {/* কলাম ২: যাকাত ব্যাংক হিসাব */}
-            <div className="bg-white rounded-2xl p-6 shadow-xs border border-amber-200/80 flex flex-col justify-between">
+            <div className="bg-white rounded-none p-6 shadow-xs border border-amber-200/80 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-11 h-11 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
+                  <div className="w-11 h-11 rounded-sm bg-amber-50 text-amber-700 flex items-center justify-center">
                     <ShieldCheck className="w-6 h-6" />
                   </div>
                   <div>
@@ -120,7 +120,7 @@ export default function Footer() {
                     </p>
                   </div>
                 </div>
-                <div className="space-y-2 text-sm text-slate-700 bg-amber-50/40 rounded-xl p-4 border border-amber-100">
+                <div className="space-y-2 text-sm text-slate-700 bg-amber-50/40 rounded-sm p-4 border border-amber-100">
                   <div className="font-july font-bold text-base text-amber-800">
                     {zakat?.bank_name}
                   </div>
@@ -128,7 +128,7 @@ export default function Footer() {
                     <span className="text-slate-500">হিসাবের নাম:</span>{" "}
                     <span className="font-semibold">{zakat?.acc_name}</span>
                   </div>
-                  <div className="flex items-center justify-between gap-2 bg-white px-3 py-2 rounded-lg border border-amber-200">
+                  <div className="flex items-center justify-between gap-2 bg-white px-3 py-2 rounded-sm border border-amber-200">
                     <div>
                       <span className="text-xs text-slate-400 block">হিসাব নম্বর:</span>
                       <span className="font-mono font-bold text-slate-900">
@@ -138,7 +138,7 @@ export default function Footer() {
                     <button
                       type="button"
                       onClick={() => copyText(zakat?.acc_no || "", "zakat")}
-                      className="text-xs px-2.5 py-1.5 rounded-md bg-amber-50 hover:bg-amber-100 text-amber-800 font-july font-bold inline-flex items-center gap-1 cursor-pointer"
+                      className="text-xs px-2.5 py-1.5 rounded-sm bg-amber-50 hover:bg-amber-100 text-amber-800 font-july font-bold inline-flex items-center gap-1 cursor-pointer"
                     >
                       {copiedKey === "zakat" ? (
                         <>
@@ -163,10 +163,10 @@ export default function Footer() {
             </div>
 
             {/* কলাম ৩: মোবাইল ব্যাংকিং */}
-            <div className="bg-white rounded-2xl p-6 shadow-xs border border-sky-100 flex flex-col justify-between">
+            <div className="bg-white rounded-none p-6 shadow-xs border border-sky-100 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-11 h-11 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center">
+                  <div className="w-11 h-11 rounded-sm bg-pink-50 text-pink-600 flex items-center justify-center">
                     <Smartphone className="w-6 h-6" />
                   </div>
                   <div>
@@ -183,7 +183,7 @@ export default function Footer() {
                   {(settings.mobile_banking || []).map((mb, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-slate-50 border border-slate-100 text-sm"
+                      className="flex items-center justify-between gap-2 px-3 py-2 rounded-sm bg-slate-50 border border-slate-100 text-sm"
                     >
                       <div>
                         <span className="text-xs text-slate-500 block">{mb.label}</span>
@@ -194,7 +194,7 @@ export default function Footer() {
                       <button
                         type="button"
                         onClick={() => copyText(mb.number, `mb-${idx}`)}
-                        className="text-xs px-2 py-1 rounded bg-white border border-slate-200 hover:border-sky-300 text-[#2375b8] font-july font-bold inline-flex items-center gap-1 cursor-pointer"
+                        className="text-xs px-2 py-1 rounded-sm bg-white border border-slate-200 hover:border-sky-300 text-[#2375b8] font-july font-bold inline-flex items-center gap-1 cursor-pointer"
                       >
                         {copiedKey === `mb-${idx}` ? (
                           <Check className="w-3.5 h-3.5 text-emerald-600" />
@@ -209,7 +209,7 @@ export default function Footer() {
 
               <Link
                 href="/donate"
-                className="mt-4 w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#2375b8] hover:bg-[#195d96] text-white font-july font-bold text-sm transition"
+                className="mt-4 w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-sm bg-[#2375b8] hover:bg-[#195d96] text-white font-july font-bold text-sm transition"
               >
                 <Heart className="w-4 h-4 fill-white" />
                 <span>অনলাইনে প্রদান করুন — এখানে দান করুন</span>

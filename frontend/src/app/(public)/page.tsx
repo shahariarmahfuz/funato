@@ -104,7 +104,7 @@ export default function HomePage() {
           {/* Left 7 Columns: Responsive Hero Banner & Feature Cards */}
           <div className="lg:col-span-7 flex flex-col min-w-0 w-full">
             {/* HERO BANNER: Strict 16:9 on Mobile, 2.2:1 on Desktop */}
-            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-md shadow-slate-900/10 border border-slate-200/80 bg-[#082238] aspect-[16/9] lg:aspect-[2.2/1] w-full">
+            <div className="relative rounded-none overflow-hidden shadow-sm border border-slate-200/80 bg-[#082238] aspect-[16/9] lg:aspect-[2.2/1] w-full">
               {currentSlide ? (
                 <>
                   {/* ============================================================
@@ -125,7 +125,7 @@ export default function HomePage() {
                     <div className="absolute inset-0 z-10 p-3 sm:p-4.5 flex flex-col justify-between text-white">
                       {/* Top: Badge */}
                       <div>
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/85 backdrop-blur-xs text-[10px] sm:text-xs font-july font-bold text-white shadow-xs border border-white/20">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm bg-sky-500/85 backdrop-blur-xs text-[10px] sm:text-xs font-july font-bold text-white shadow-xs border border-white/20">
                           <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-300" />
                           <span>{currentSlide.badge_bn}</span>
                         </span>
@@ -149,14 +149,14 @@ export default function HomePage() {
                         <div className="flex items-center gap-1.5 shrink-0">
                           <Link
                             href={currentSlide.cta_link || "/donate"}
-                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-gradient-to-r from-[#2375b8] to-[#1788bf] active:scale-95 text-white font-july font-bold text-[11px] shadow-sm shrink-0 cursor-pointer"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-sm bg-gradient-to-r from-[#2375b8] to-[#1788bf] active:scale-95 text-white font-july font-bold text-[11px] shadow-sm shrink-0 cursor-pointer"
                           >
                             <Heart className="w-3 h-3 fill-white" />
                             <span>{currentSlide.cta_text_bn || "দান করুন"}</span>
                           </Link>
                           <Link
                             href="/zakat-calculator"
-                            className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-white/20 hover:bg-white/30 backdrop-blur-xs active:scale-95 text-white font-july font-bold text-[10px] border border-white/25 shrink-0 cursor-pointer"
+                            className="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-white/20 hover:bg-white/30 backdrop-blur-xs active:scale-95 text-white font-july font-bold text-[10px] border border-white/25 shrink-0 cursor-pointer"
                           >
                             <Calculator className="w-3 h-3 text-amber-300" />
                             <span>যাকাত হিসাব</span>
@@ -213,7 +213,7 @@ export default function HomePage() {
                     <div className="lg:col-span-7 flex flex-col justify-between p-5 xl:p-6 text-white bg-gradient-to-r from-[#082238] via-[#0b2942] to-[#0f3454] relative z-10">
                       <div>
                         {/* Campaign Badge */}
-                        <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/15 border border-white/20 text-xs font-july font-bold text-sky-200 shadow-2xs">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-sm bg-white/15 border border-white/20 text-xs font-july font-bold text-sky-200 shadow-2xs">
                           <Sparkles className="w-3.5 h-3.5 text-amber-300" />
                           <span>{currentSlide.badge_bn}</span>
                         </div>
@@ -235,14 +235,14 @@ export default function HomePage() {
                         <div className="flex items-center gap-2">
                           <Link
                             href={currentSlide.cta_link || "/donate"}
-                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#2375b8] to-[#1788bf] hover:from-[#1b619c] hover:to-[#1374a6] text-white font-july font-bold text-xs shadow-sm hover:shadow-md transition cursor-pointer"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm bg-gradient-to-r from-[#2375b8] to-[#1788bf] hover:from-[#1b619c] hover:to-[#1374a6] text-white font-july font-bold text-xs shadow-sm hover:shadow-md transition cursor-pointer"
                           >
                             <Heart className="w-3.5 h-3.5 fill-white" />
                             <span>{currentSlide.cta_text_bn || "দান করুন"}</span>
                           </Link>
                           <Link
                             href="/zakat-calculator"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-july font-bold text-xs border border-white/20 transition cursor-pointer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-white/15 hover:bg-white/25 text-white font-july font-bold text-xs border border-white/20 transition cursor-pointer"
                           >
                             <Calculator className="w-3.5 h-3.5 text-amber-300" />
                             <span>যাকাত হিসাব করুন</span>
@@ -260,7 +260,7 @@ export default function HomePage() {
                                   type="button"
                                   onClick={() => setSlideIdx(idx)}
                                   aria-label={`Slide ${idx + 1}`}
-                                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                                  className={`h-1.5 transition-all duration-300 cursor-pointer ${
                                     idx === slideIdx ? "w-5 bg-sky-400" : "w-1.5 bg-white/40 hover:bg-white/60"
                                   }`}
                                 />
@@ -278,7 +278,7 @@ export default function HomePage() {
                                   setSlideIdx((slideIdx - 1 + slides.length) % slides.length)
                                 }
                                 aria-label="Previous slide"
-                                className="p-1 rounded-md bg-white/15 hover:bg-white/30 text-white transition cursor-pointer"
+                                className="p-1 rounded-sm bg-white/15 hover:bg-white/30 text-white transition cursor-pointer"
                               >
                                 <ChevronLeft className="w-3.5 h-3.5" />
                               </button>
@@ -286,7 +286,7 @@ export default function HomePage() {
                                 type="button"
                                 onClick={() => setSlideIdx((slideIdx + 1) % slides.length)}
                                 aria-label="Next slide"
-                                className="p-1 rounded-md bg-white/15 hover:bg-white/30 text-white transition cursor-pointer"
+                                className="p-1 rounded-sm bg-white/15 hover:bg-white/30 text-white transition cursor-pointer"
                               >
                                 <ChevronRight className="w-3.5 h-3.5" />
                               </button>
@@ -321,8 +321,8 @@ export default function HomePage() {
             {/* BOTTOM FEATURE CARDS (TRUST INDICATORS) */}
             {/* Mobile: Compact 2-column grid | Desktop: Single horizontal row of 4 */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5 mt-2.5 sm:mt-3 w-full">
-              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-emerald-300 transition-colors min-w-0">
-                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-none bg-white border border-slate-200/80 shadow-2xs hover:border-emerald-300 transition-colors min-w-0">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-none bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
                 <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate min-w-0">
@@ -330,8 +330,8 @@ export default function HomePage() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-sky-300 transition-colors min-w-0">
-                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-sky-50 text-[#2375b8] flex items-center justify-center shrink-0">
+              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-none bg-white border border-slate-200/80 shadow-2xs hover:border-sky-300 transition-colors min-w-0">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-none bg-sky-50 text-[#2375b8] flex items-center justify-center shrink-0">
                   <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
                 <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate min-w-0">
@@ -339,8 +339,8 @@ export default function HomePage() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-amber-300 transition-colors min-w-0">
-                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-none bg-white border border-slate-200/80 shadow-2xs hover:border-amber-300 transition-colors min-w-0">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-none bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
                   <BadgeCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
                 <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate min-w-0">
@@ -348,8 +348,8 @@ export default function HomePage() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-purple-300 transition-colors min-w-0">
-                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-none bg-white border border-slate-200/80 shadow-2xs hover:border-purple-300 transition-colors min-w-0">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-none bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
                   <Video className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
                 <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate min-w-0">
@@ -425,13 +425,13 @@ export default function HomePage() {
 
       {/* 6. ZAKAT SELF-RELIANCE SPOTLIGHT BANNER */}
       <section className="px-4">
-        <div className="max-w-7xl mx-auto rounded-3xl bg-gradient-to-r from-[#0b2942] via-[#0f4c75] to-[#1788bf] p-7 sm:p-12 text-white shadow-xl shadow-sky-950/20 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto rounded-none bg-gradient-to-r from-[#0b2942] via-[#0f4c75] to-[#1788bf] p-7 sm:p-12 text-white shadow-md relative overflow-hidden">
           {/* Subtle Islamic Motif Background Decoration */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="space-y-4 max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-200 text-xs font-july font-bold">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-sm bg-amber-400/20 border border-amber-300/30 text-amber-200 text-xs font-july font-bold">
                 <ShieldCheck className="w-4 h-4 text-amber-400" />
                 <span>স্বাধীন শরীয়াহ বোর্ড অনুমোদিত যাকাত ব্যবস্থাপনা</span>
               </div>
@@ -462,14 +462,14 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full sm:w-auto">
               <Link
                 href="/zakat-calculator"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-july font-bold shadow-lg transition"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-sm bg-amber-400 hover:bg-amber-300 text-slate-950 font-july font-bold shadow-md transition"
               >
                 <Calculator className="w-5 h-5" />
                 <span>যাকাত হিসাব করুন</span>
               </Link>
               <Link
                 href="/donate/zakat"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-sky-50 text-[#0f4c75] font-july font-bold shadow-lg transition"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-sm bg-white hover:bg-sky-50 text-[#0f4c75] font-july font-bold shadow-md transition"
               >
                 <Heart className="w-5 h-5 text-[#2375b8] fill-[#2375b8]" />
                 <span>যাকাত প্রদান করুন</span>
@@ -494,8 +494,8 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-sky-50 text-[#2375b8] flex items-center justify-center">
+          <div className="bg-white rounded-none p-6 border border-slate-200/80 shadow-2xs space-y-3">
+            <div className="w-12 h-12 rounded-sm bg-sky-50 text-[#2375b8] flex items-center justify-center">
               <BadgeCheck className="w-6 h-6" />
             </div>
             <h3 className="font-july font-bold text-lg text-[#0f4c75]">
@@ -506,8 +506,8 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+          <div className="bg-white rounded-none p-6 border border-slate-200/80 shadow-2xs space-y-3">
+            <div className="w-12 h-12 rounded-sm bg-emerald-50 text-emerald-600 flex items-center justify-center">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <h3 className="font-july font-bold text-lg text-[#0f4c75]">
@@ -518,8 +518,8 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+          <div className="bg-white rounded-none p-6 border border-slate-200/80 shadow-2xs space-y-3">
+            <div className="w-12 h-12 rounded-sm bg-amber-50 text-amber-600 flex items-center justify-center">
               <FileText className="w-6 h-6" />
             </div>
             <h3 className="font-july font-bold text-lg text-[#0f4c75]">
@@ -530,8 +530,8 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+          <div className="bg-white rounded-none p-6 border border-slate-200/80 shadow-2xs space-y-3">
+            <div className="w-12 h-12 rounded-sm bg-purple-50 text-purple-600 flex items-center justify-center">
               <Video className="w-6 h-6" />
             </div>
             <h3 className="font-july font-bold text-lg text-[#0f4c75]">
@@ -571,7 +571,7 @@ export default function HomePage() {
                 key={vid.id}
                 type="button"
                 onClick={() => setPlayingVideo(vid)}
-                className="group text-left bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs hover:shadow-xl transition-all duration-300 cursor-pointer"
+                className="group text-left bg-white rounded-none border border-slate-200 overflow-hidden shadow-2xs hover:shadow-lg transition-all duration-300 cursor-pointer"
               >
                 <div className="relative h-52 bg-slate-900 overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -588,7 +588,7 @@ export default function HomePage() {
                       <Play className="w-6 h-6 fill-white ml-0.5" />
                     </div>
                   </div>
-                  <span className="absolute bottom-3 right-3 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-xs text-white text-xs font-mono">
+                  <span className="absolute bottom-3 right-3 px-2 py-0.5 rounded-sm bg-black/80 backdrop-blur-xs text-white text-xs font-mono">
                     {vid.duration}
                   </span>
                 </div>
@@ -607,7 +607,7 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4">
         <div className="flex items-end justify-between gap-4 mb-8">
           <div>
-            <span className="inline-block px-3.5 py-1 rounded-full bg-[#f0f7fd] text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
+            <span className="inline-block px-3.5 py-1 rounded-sm bg-[#f0f7fd] text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
               পরিবর্তনের গল্প
             </span>
             <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75]">
@@ -628,7 +628,7 @@ export default function HomePage() {
             <Link
               key={post.id}
               href={`/news-stories/${post.slug}`}
-              className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-2xs hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex flex-col"
+              className="group bg-white rounded-none border border-slate-200 overflow-hidden shadow-2xs hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex flex-col"
             >
               <div className="h-52 overflow-hidden bg-slate-100">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -667,7 +667,7 @@ export default function HomePage() {
         <div className="lg:col-span-8 space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <span className="inline-block px-3 py-0.5 rounded-full bg-sky-50 text-[#2375b8] font-july font-bold text-xs mb-1">
+              <span className="inline-block px-3 py-0.5 rounded-sm bg-sky-50 text-[#2375b8] font-july font-bold text-xs mb-1">
                 প্রেস ও গণমাধ্যম
               </span>
               <h2 className="text-2xl font-july font-bold text-[#0f4c75]">
@@ -687,9 +687,9 @@ export default function HomePage() {
               <Link
                 key={item.id}
                 href={`/news-stories/${item.slug}`}
-                className="flex flex-col sm:flex-row gap-4 p-4 rounded-2xl bg-white border border-slate-200 hover:border-sky-300 shadow-2xs hover:shadow-md transition-all group"
+                className="flex flex-col sm:flex-row gap-4 p-4 rounded-none bg-white border border-slate-200 hover:border-sky-300 shadow-2xs hover:shadow-md transition-all group"
               >
-                <div className="sm:w-44 h-32 rounded-xl overflow-hidden bg-slate-100 shrink-0">
+                <div className="sm:w-44 h-32 rounded-none overflow-hidden bg-slate-100 shrink-0">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={item.cover_image}
@@ -722,7 +722,7 @@ export default function HomePage() {
         {/* Right 4 cols: Live Verified Donor Wall + Volunteer Invitation */}
         <div className="lg:col-span-4 space-y-6">
           {/* Live Verified Donors Box */}
-          <div className="bg-white rounded-2xl border border-sky-100 p-5 shadow-2xs">
+          <div className="bg-white rounded-none border border-sky-100 p-5 shadow-2xs">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
@@ -730,7 +730,7 @@ export default function HomePage() {
                   লাইভ অনুদান আপডেট
                 </h3>
               </div>
-              <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold">
+              <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm font-bold">
                 ভেরিফাইড
               </span>
             </div>
@@ -739,7 +739,7 @@ export default function HomePage() {
               {(data?.recent_donations || []).map((don) => (
                 <div
                   key={don.id}
-                  className="flex items-center justify-between gap-2 p-3 rounded-xl bg-[#f0f7fd]/70 border border-sky-100 text-sm hover:bg-sky-50 transition"
+                  className="flex items-center justify-between gap-2 p-3 rounded-none bg-[#f0f7fd]/70 border border-sky-100 text-sm hover:bg-sky-50 transition"
                 >
                   <div className="min-w-0">
                     <div className="font-july font-bold text-slate-800 truncate">
@@ -763,8 +763,8 @@ export default function HomePage() {
           </div>
 
           {/* Volunteer CTA Card */}
-          <div className="rounded-2xl bg-gradient-to-br from-[#2375b8] to-[#0b2942] p-6 text-white space-y-3.5 shadow-lg">
-            <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center text-sky-200">
+          <div className="rounded-none bg-gradient-to-br from-[#2375b8] to-[#0b2942] p-6 text-white space-y-3.5 shadow-md">
+            <div className="w-10 h-10 rounded-sm bg-white/15 flex items-center justify-center text-sky-200">
               <UserPlus className="w-6 h-6" />
             </div>
             <h3 className="font-july font-bold text-xl">
@@ -775,7 +775,7 @@ export default function HomePage() {
             </p>
             <Link
               href="/be-a-volunteer"
-              className="inline-flex w-full items-center justify-center gap-2 py-2.5 rounded-xl bg-white text-[#0f4c75] font-july font-bold text-sm hover:bg-sky-50 shadow-md transition"
+              className="inline-flex w-full items-center justify-center gap-2 py-2.5 rounded-sm bg-white text-[#0f4c75] font-july font-bold text-sm hover:bg-sky-50 shadow-sm transition"
             >
               <span>নিবন্ধন ফর্ম পূরণ করুন</span>
               <ArrowRight className="w-4 h-4" />
@@ -786,9 +786,9 @@ export default function HomePage() {
 
       {/* 11. 24/7 HOTLINE HELPLINE STRIP */}
       <section className="max-w-7xl mx-auto px-4">
-        <div className="rounded-2xl bg-gradient-to-r from-sky-50 via-blue-50 to-indigo-50 border border-sky-200/80 p-5 sm:p-7 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="rounded-none bg-gradient-to-r from-sky-50 via-blue-50 to-indigo-50 border border-sky-200/80 p-5 sm:p-7 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3.5 text-center sm:text-left">
-            <div className="w-12 h-12 rounded-2xl bg-[#2375b8] text-white flex items-center justify-center shrink-0 shadow-md">
+            <div className="w-12 h-12 rounded-sm bg-[#2375b8] text-white flex items-center justify-center shrink-0 shadow-sm">
               <PhoneCall className="w-6 h-6" />
             </div>
             <div>
@@ -803,13 +803,13 @@ export default function HomePage() {
           <div className="flex items-center gap-3">
             <a
               href={`tel:${settings.phone_hotline}`}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#2375b8] hover:bg-[#1b619c] text-white font-july font-bold text-sm shadow-md transition"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-sm bg-[#2375b8] hover:bg-[#1b619c] text-white font-july font-bold text-sm shadow-sm transition"
             >
               <span>{settings.phone_hotline}</span>
             </a>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-700 font-july font-bold text-sm hover:bg-slate-50 transition"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-sm bg-white border border-slate-300 text-slate-700 font-july font-bold text-sm hover:bg-slate-50 transition"
             >
               <span>অফিস ঠিকানা</span>
             </Link>
@@ -820,7 +820,7 @@ export default function HomePage() {
       {/* 12. VIDEO LIGHTBOX MODAL */}
       {playingVideo && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-950 rounded-2xl overflow-hidden max-w-4xl w-full shadow-2xl border border-white/15">
+          <div className="bg-slate-950 rounded-none overflow-hidden max-w-4xl w-full shadow-2xl border border-white/15">
             <div className="flex items-center justify-between px-5 py-3 border-b border-white/10 text-white">
               <h3 className="font-july font-bold text-base truncate">
                 {playingVideo.title_bn}

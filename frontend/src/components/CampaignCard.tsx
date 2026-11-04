@@ -28,7 +28,7 @@ export default function CampaignCard({ campaign }: { campaign: Campaign }) {
   const categoryLabel = CATEGORY_NAMES_BN[campaign.category] || campaign.category;
 
   return (
-    <div className="group bg-white rounded-2xl border border-slate-200/90 hover:border-sky-400 shadow-2xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col justify-between">
+    <div className="group bg-white rounded-none border border-slate-200/90 hover:border-sky-400 shadow-2xs hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 overflow-hidden flex flex-col justify-between">
       <div>
         {/* Cover Image */}
         <Link href={`/donate/${campaign.slug}`} className="relative h-52 overflow-hidden block bg-slate-100">
@@ -45,21 +45,21 @@ export default function CampaignCard({ campaign }: { campaign: Campaign }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
           <div className="absolute top-3 left-3 flex items-center gap-2">
             {campaign.is_urgent && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-rose-600 text-white font-july font-bold text-xs shadow-sm">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-sm bg-rose-600 text-white font-july font-bold text-xs shadow-sm">
                 <Flame className="w-3 h-3 fill-white" />
                 জরুরি তহবিল
               </span>
             )}
-            <span className="px-2.5 py-1 rounded-full bg-white/95 text-[#0f4c75] font-july font-bold text-xs shadow-sm">
+            <span className="px-2.5 py-1 rounded-sm bg-white/95 text-[#0f4c75] font-july font-bold text-xs shadow-sm">
               {categoryLabel}
             </span>
           </div>
           <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white text-xs">
-            <span className="inline-flex items-center gap-1 bg-black/50 backdrop-blur-xs px-2.5 py-1 rounded-full font-medium">
+            <span className="inline-flex items-center gap-1 bg-black/50 backdrop-blur-xs px-2.5 py-1 rounded-sm font-medium">
               <Users className="w-3.5 h-3.5 text-sky-300" />
               {toBnDigits(campaign.donor_count)} জন দাতা
             </span>
-            <span className="font-july font-bold bg-[#2375b8] px-2.5 py-1 rounded-full shadow-xs">
+            <span className="font-july font-bold bg-[#2375b8] px-2.5 py-1 rounded-sm shadow-xs">
               {toBnDigits(pct)}% সম্পন্ন
             </span>
           </div>
@@ -81,9 +81,9 @@ export default function CampaignCard({ campaign }: { campaign: Campaign }) {
       <div className="p-5 pt-0 space-y-3">
         {/* Progress Bar */}
         <div>
-          <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
+          <div className="h-2 w-full rounded-none bg-slate-100 overflow-hidden">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-[#2375b8] via-[#1788bf] to-emerald-500 transition-all duration-500"
+              className="h-full rounded-none bg-gradient-to-r from-[#2375b8] via-[#1788bf] to-emerald-500 transition-all duration-500"
               style={{ width: `${pct}%` }}
             />
           </div>
@@ -107,14 +107,14 @@ export default function CampaignCard({ campaign }: { campaign: Campaign }) {
         <div className="grid grid-cols-5 gap-2 pt-1">
           <Link
             href={`/donate/${campaign.slug}`}
-            className="col-span-3 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#2375b8] to-[#1788bf] hover:from-[#1b619c] hover:to-[#1374a6] text-white font-july font-bold text-sm shadow-xs hover:shadow-md transition cursor-pointer"
+            className="col-span-3 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-sm bg-gradient-to-r from-[#2375b8] to-[#1788bf] hover:from-[#1b619c] hover:to-[#1374a6] text-white font-july font-bold text-sm shadow-xs hover:shadow-md transition cursor-pointer"
           >
             <Heart className="w-4 h-4 fill-white" />
             <span>দান করুন</span>
           </Link>
           <Link
             href={`/donate/${campaign.slug}`}
-            className="col-span-2 inline-flex items-center justify-center gap-1 py-2.5 px-3 rounded-xl bg-[#f0f7fd] hover:bg-sky-100 text-[#2375b8] font-july font-bold text-sm transition cursor-pointer"
+            className="col-span-2 inline-flex items-center justify-center gap-1 py-2.5 px-3 rounded-sm bg-[#f0f7fd] hover:bg-sky-100 text-[#2375b8] font-july font-bold text-sm transition cursor-pointer"
           >
             <span>বিস্তারিত</span>
             <ArrowRight className="w-3.5 h-3.5" />
