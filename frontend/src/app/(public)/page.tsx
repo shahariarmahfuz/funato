@@ -101,124 +101,257 @@ export default function HomePage() {
         <div className="absolute top-1/3 right-10 w-80 h-80 bg-blue-100/50 rounded-full blur-3xl -z-10 pointer-events-none" />
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-          {/* Left 7 Columns: Hero Carousel */}
-          <div className="lg:col-span-7">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl shadow-slate-900/10 min-h-[440px] sm:min-h-[520px] bg-[#0b2942] flex flex-col justify-end border border-slate-200/60 group">
+          {/* Left 7 Columns: Responsive Hero Banner & Feature Cards */}
+          <div className="lg:col-span-7 flex flex-col">
+            {/* HERO BANNER: Strict 16:9 on Mobile, 2.2:1 on Desktop */}
+            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-md shadow-slate-900/10 border border-slate-200/80 bg-[#082238] aspect-[16/9] lg:aspect-[2.2/1] w-full">
               {currentSlide ? (
                 <>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={currentSlide.image_url}
-                    alt={currentSlide.title_bn}
-                    className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
-                  />
-                  {/* Rich Gradient Overlay for Maximum Text Legibility */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#061b2e] via-[#092742]/70 to-black/25" />
+                  {/* ============================================================
+                      A. MOBILE VIEW (< lg): Strict 16:9, Background Image + Overlay
+                      ============================================================ */}
+                  <div className="lg:hidden absolute inset-0 w-full h-full">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={currentSlide.image_url}
+                      alt={currentSlide.title_bn}
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Deep gradient overlay for Bengali readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/65 to-black/35" />
 
-                  <div className="relative z-10 p-6 sm:p-9 space-y-4 text-white">
-                    {/* Badge */}
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-xs sm:text-sm font-july font-bold text-sky-100 shadow-sm">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                      <span>{currentSlide.badge_bn}</span>
-                    </div>
-
-                    {/* Headline */}
-                    <h1 className="text-2xl sm:text-4xl font-july font-bold leading-tight sm:leading-snug text-white tracking-tight drop-shadow-sm">
-                      {currentSlide.title_bn}
-                    </h1>
-
-                    {/* Subtitle */}
-                    <p className="text-sm sm:text-base text-slate-100 max-w-2xl leading-relaxed font-light drop-shadow-xs">
-                      {currentSlide.subtitle_bn}
-                    </p>
-
-                    {/* CTA Actions */}
-                    <div className="pt-2 flex flex-wrap items-center gap-3">
-                      <Link
-                        href={currentSlide.cta_link || "/donate"}
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#2375b8] to-[#1788bf] hover:from-[#1b619c] hover:to-[#1374a6] text-white font-july font-bold shadow-lg shadow-sky-950/40 hover:shadow-xl hover:-translate-y-0.5 transition duration-200 cursor-pointer"
-                      >
-                        <Heart className="w-4 h-4 fill-white" />
-                        <span>{currentSlide.cta_text_bn || "দান করুন"}</span>
-                      </Link>
-                      <Link
-                        href="/zakat-calculator"
-                        className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/15 hover:bg-white/25 backdrop-blur-md text-white font-july font-bold border border-white/25 hover:border-white/40 shadow-sm transition duration-200 cursor-pointer"
-                      >
-                        <Calculator className="w-4 h-4 text-amber-300" />
-                        <span>যাকাত হিসাব করুন</span>
-                      </Link>
-                    </div>
-
-                    {/* Carousel Navigation Strip */}
-                    {slides.length > 1 && (
-                      <div className="pt-4 flex items-center justify-between border-t border-white/10">
-                        {/* Slide Dots with Active Expansion */}
-                        <div className="flex items-center gap-2">
-                          {slides.map((s, idx) => (
-                            <button
-                              key={s.id}
-                              type="button"
-                              onClick={() => setSlideIdx(idx)}
-                              aria-label={`Slide ${idx + 1}`}
-                              className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                                idx === slideIdx
-                                  ? "w-8 bg-sky-400 shadow-xs"
-                                  : "w-2.5 bg-white/40 hover:bg-white/60"
-                              }`}
-                            />
-                          ))}
-                        </div>
-
-                        {/* Slide Counter & Next/Prev Controls */}
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs text-slate-300 font-mono font-bold mr-1">
-                            {toBnDigits(slideIdx + 1)} / {toBnDigits(slides.length)}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setSlideIdx((slideIdx - 1 + slides.length) % slides.length)
-                            }
-                            className="p-2 rounded-xl bg-white/15 hover:bg-white/30 text-white backdrop-blur-xs transition cursor-pointer"
-                            aria-label="Previous slide"
-                          >
-                            <ChevronLeft className="w-4 h-4" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setSlideIdx((slideIdx + 1) % slides.length)}
-                            className="p-2 rounded-xl bg-white/15 hover:bg-white/30 text-white backdrop-blur-xs transition cursor-pointer"
-                            aria-label="Next slide"
-                          >
-                            <ChevronRight className="w-4 h-4" />
-                          </button>
-                        </div>
+                    {/* Mobile Compact Content (Strictly fitted within 16:9) */}
+                    <div className="relative z-10 p-3 sm:p-4.5 flex flex-col justify-between h-full text-white">
+                      {/* Top: Badge */}
+                      <div>
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/80 backdrop-blur-xs text-[10px] sm:text-xs font-july font-bold text-white shadow-xs">
+                          <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-300" />
+                          <span>{currentSlide.badge_bn}</span>
+                        </span>
                       </div>
-                    )}
+
+                      {/* Middle: Headline & Description */}
+                      <div className="my-auto py-1">
+                        <h1 className="text-[13px] sm:text-base font-july font-bold leading-tight sm:leading-snug text-white drop-shadow-sm line-clamp-2">
+                          {currentSlide.title_bn}
+                        </h1>
+                        <p className="text-[10px] sm:text-xs text-slate-200 line-clamp-1 leading-tight font-light mt-0.5 drop-shadow-xs">
+                          {currentSlide.subtitle_bn}
+                        </p>
+                      </div>
+
+                      {/* Bottom: Compact CTAs & Carousel Controls in single row */}
+                      <div className="flex items-center justify-between gap-1.5 pt-0.5">
+                        {/* Horizontal Compact CTAs */}
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <Link
+                            href={currentSlide.cta_link || "/donate"}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-gradient-to-r from-[#2375b8] to-[#1788bf] text-white font-july font-bold text-[11px] shadow-xs shrink-0 cursor-pointer"
+                          >
+                            <Heart className="w-3 h-3 fill-white" />
+                            <span>{currentSlide.cta_text_bn || "দান করুন"}</span>
+                          </Link>
+                          <Link
+                            href="/zakat-calculator"
+                            className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-white/20 backdrop-blur-xs text-white font-july font-bold text-[10px] border border-white/25 shrink-0 cursor-pointer"
+                          >
+                            <Calculator className="w-3 h-3 text-amber-300" />
+                            <span>যাকাত হিসাব</span>
+                          </Link>
+                        </div>
+
+                        {/* Carousel Controls */}
+                        {slides.length > 1 && (
+                          <div className="flex items-center gap-1 shrink-0">
+                            <div className="flex items-center gap-1">
+                              {slides.map((s, idx) => (
+                                <button
+                                  key={s.id}
+                                  type="button"
+                                  onClick={() => setSlideIdx(idx)}
+                                  aria-label={`Slide ${idx + 1}`}
+                                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                                    idx === slideIdx ? "w-3.5 bg-sky-400" : "w-1.5 bg-white/40"
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                            <div className="flex items-center ml-0.5">
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setSlideIdx((slideIdx - 1 + slides.length) % slides.length)
+                                }
+                                aria-label="Previous slide"
+                                className="p-0.5 rounded bg-black/40 text-white/80 hover:text-white cursor-pointer"
+                              >
+                                <ChevronLeft className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setSlideIdx((slideIdx + 1) % slides.length)}
+                                aria-label="Next slide"
+                                className="p-0.5 rounded bg-black/40 text-white/80 hover:text-white cursor-pointer"
+                              >
+                                <ChevronRight className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ============================================================
+                      B. DESKTOP VIEW (>= lg): 2.2:1 Aspect Ratio, Text Left, Image Right
+                      ============================================================ */}
+                  <div className="hidden lg:grid lg:grid-cols-12 h-full w-full">
+                    {/* Left 7 Columns: Text Content */}
+                    <div className="lg:col-span-7 flex flex-col justify-between p-5 xl:p-6 text-white bg-gradient-to-r from-[#082238] via-[#0b2942] to-[#0f3454] relative z-10">
+                      <div>
+                        {/* Campaign Badge */}
+                        <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/15 border border-white/20 text-xs font-july font-bold text-sky-200 shadow-2xs">
+                          <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                          <span>{currentSlide.badge_bn}</span>
+                        </div>
+
+                        {/* Heading */}
+                        <h1 className="font-july font-bold text-lg xl:text-xl text-white leading-snug line-clamp-2 mt-2.5 tracking-tight">
+                          {currentSlide.title_bn}
+                        </h1>
+
+                        {/* Description */}
+                        <p className="text-xs text-slate-200 leading-relaxed line-clamp-2 font-light mt-1.5">
+                          {currentSlide.subtitle_bn}
+                        </p>
+                      </div>
+
+                      {/* Bottom Area: CTAs + Controls */}
+                      <div className="space-y-2.5 pt-2">
+                        {/* Horizontal CTAs */}
+                        <div className="flex items-center gap-2">
+                          <Link
+                            href={currentSlide.cta_link || "/donate"}
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#2375b8] to-[#1788bf] hover:from-[#1b619c] hover:to-[#1374a6] text-white font-july font-bold text-xs shadow-sm hover:shadow-md transition cursor-pointer"
+                          >
+                            <Heart className="w-3.5 h-3.5 fill-white" />
+                            <span>{currentSlide.cta_text_bn || "দান করুন"}</span>
+                          </Link>
+                          <Link
+                            href="/zakat-calculator"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-july font-bold text-xs border border-white/20 transition cursor-pointer"
+                          >
+                            <Calculator className="w-3.5 h-3.5 text-amber-300" />
+                            <span>যাকাত হিসাব করুন</span>
+                          </Link>
+                        </div>
+
+                        {/* Controls Strip */}
+                        {slides.length > 1 && (
+                          <div className="flex items-center justify-between border-t border-white/10 pt-2">
+                            {/* Dots */}
+                            <div className="flex items-center gap-1.5">
+                              {slides.map((s, idx) => (
+                                <button
+                                  key={s.id}
+                                  type="button"
+                                  onClick={() => setSlideIdx(idx)}
+                                  aria-label={`Slide ${idx + 1}`}
+                                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                                    idx === slideIdx ? "w-5 bg-sky-400" : "w-1.5 bg-white/40 hover:bg-white/60"
+                                  }`}
+                                />
+                              ))}
+                            </div>
+
+                            {/* Counter & Arrows */}
+                            <div className="flex items-center gap-1">
+                              <span className="text-[11px] text-slate-300 font-mono font-bold mr-1">
+                                {toBnDigits(slideIdx + 1)} / {toBnDigits(slides.length)}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setSlideIdx((slideIdx - 1 + slides.length) % slides.length)
+                                }
+                                aria-label="Previous slide"
+                                className="p-1 rounded-md bg-white/15 hover:bg-white/30 text-white transition cursor-pointer"
+                              >
+                                <ChevronLeft className="w-3.5 h-3.5" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setSlideIdx((slideIdx + 1) % slides.length)}
+                                aria-label="Next slide"
+                                className="p-1 rounded-md bg-white/15 hover:bg-white/30 text-white transition cursor-pointer"
+                              >
+                                <ChevronRight className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Right 5 Columns: Slide Image */}
+                    <div className="lg:col-span-5 relative h-full overflow-hidden bg-slate-900">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={currentSlide.image_url}
+                        alt={currentSlide.title_bn}
+                        className="w-full h-full object-cover transition-all duration-700 hover:scale-105"
+                      />
+                      {/* Soft left gradient fade into text side */}
+                      <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#0f3454] to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
+                    </div>
                   </div>
                 </>
               ) : (
-                <div className="p-10 text-white space-y-4">
-                  <h1 className="text-3xl font-july font-bold">{settings.org_name_bn}</h1>
-                  <p>{settings.tagline_bn}</p>
+                <div className="p-6 text-white space-y-2">
+                  <h1 className="text-xl font-july font-bold">{settings.org_name_bn}</h1>
+                  <p className="text-xs">{settings.tagline_bn}</p>
                 </div>
               )}
             </div>
 
-            {/* Quick Trust Highlights below Carousel */}
-            <div className="grid grid-cols-3 gap-2 mt-3 text-center">
-              <div className="p-2 rounded-xl bg-white border border-slate-200/70 shadow-2xs text-[11px] sm:text-xs text-slate-700 font-july font-bold flex items-center justify-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span>১০০% শরীয়াহ অনুমোদিত</span>
+            {/* BOTTOM FEATURE CARDS (TRUST INDICATORS) */}
+            {/* Mobile: Compact 2-column grid | Desktop: Single horizontal row of 4 */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5 mt-2.5 sm:mt-3">
+              <div className="flex items-center gap-2 py-2 px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-emerald-300 transition-colors">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate">
+                  ১০০% শরীয়াহ সম্মত
+                </span>
               </div>
-              <div className="p-2 rounded-xl bg-white border border-slate-200/70 shadow-2xs text-[11px] sm:text-xs text-slate-700 font-july font-bold flex items-center justify-center gap-1.5">
-                <FileText className="w-3.5 h-3.5 text-[#2375b8] shrink-0" />
-                <span>তাৎক্ষণিক মানি রিসিট</span>
+
+              <div className="flex items-center gap-2 py-2 px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-sky-300 transition-colors">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-sky-50 text-[#2375b8] flex items-center justify-center shrink-0">
+                  <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate">
+                  ডিজিটাল মানি রিসিট
+                </span>
               </div>
-              <div className="p-2 rounded-xl bg-white border border-slate-200/70 shadow-2xs text-[11px] sm:text-xs text-slate-700 font-july font-bold flex items-center justify-center gap-1.5">
-                <BadgeCheck className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                <span>সরকারি সমাজসেবা নিবন্ধিত</span>
+
+              <div className="flex items-center gap-2 py-2 px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-amber-300 transition-colors">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                  <BadgeCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate">
+                  সমাজসেবা নিবন্ধিত
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 py-2 px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-purple-300 transition-colors">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+                  <Video className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate">
+                  ভিডিও ফিল্ড রিপোর্ট
+                </span>
               </div>
             </div>
           </div>
