@@ -111,20 +111,21 @@ export default function HomePage() {
                       A. MOBILE VIEW (< lg): Strict 16:9, Background Image + Overlay
                       ============================================================ */}
                   <div className="lg:hidden absolute inset-0 w-full h-full">
+                    {/* Layer 1: Background Image */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={currentSlide.image_url}
                       alt={currentSlide.title_bn}
-                      className="w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
-                    {/* Deep gradient overlay for Bengali readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/65 to-black/35" />
+                    {/* Layer 2: Deep gradient overlay for Bengali readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/70 to-slate-950/30 pointer-events-none" />
 
-                    {/* Mobile Compact Content (Strictly fitted within 16:9) */}
-                    <div className="relative z-10 p-3 sm:p-4.5 flex flex-col justify-between h-full text-white">
+                    {/* Layer 3: Mobile Content (Directly pinned over the image) */}
+                    <div className="absolute inset-0 z-10 p-3 sm:p-4.5 flex flex-col justify-between text-white">
                       {/* Top: Badge */}
                       <div>
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/80 backdrop-blur-xs text-[10px] sm:text-xs font-july font-bold text-white shadow-xs">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sky-500/85 backdrop-blur-xs text-[10px] sm:text-xs font-july font-bold text-white shadow-xs border border-white/20">
                           <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-300" />
                           <span>{currentSlide.badge_bn}</span>
                         </span>
@@ -132,28 +133,30 @@ export default function HomePage() {
 
                       {/* Middle: Headline & Description */}
                       <div className="my-auto py-1">
-                        <h1 className="text-[13px] sm:text-base font-july font-bold leading-tight sm:leading-snug text-white drop-shadow-sm line-clamp-2">
+                        <h1 className="text-[13px] sm:text-base font-july font-bold leading-tight sm:leading-snug text-white drop-shadow-md line-clamp-2">
                           {currentSlide.title_bn}
                         </h1>
-                        <p className="text-[10px] sm:text-xs text-slate-200 line-clamp-1 leading-tight font-light mt-0.5 drop-shadow-xs">
-                          {currentSlide.subtitle_bn}
-                        </p>
+                        {currentSlide.subtitle_bn && (
+                          <p className="text-[10px] sm:text-xs text-slate-200 line-clamp-1 leading-normal font-light mt-0.5 drop-shadow-sm">
+                            {currentSlide.subtitle_bn}
+                          </p>
+                        )}
                       </div>
 
                       {/* Bottom: Compact CTAs & Carousel Controls in single row */}
-                      <div className="flex items-center justify-between gap-1.5 pt-0.5">
+                      <div className="flex items-center justify-between gap-1.5 pt-1 border-t border-white/15">
                         {/* Horizontal Compact CTAs */}
                         <div className="flex items-center gap-1.5 shrink-0">
                           <Link
                             href={currentSlide.cta_link || "/donate"}
-                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-gradient-to-r from-[#2375b8] to-[#1788bf] text-white font-july font-bold text-[11px] shadow-xs shrink-0 cursor-pointer"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-gradient-to-r from-[#2375b8] to-[#1788bf] active:scale-95 text-white font-july font-bold text-[11px] shadow-sm shrink-0 cursor-pointer"
                           >
                             <Heart className="w-3 h-3 fill-white" />
                             <span>{currentSlide.cta_text_bn || "দান করুন"}</span>
                           </Link>
                           <Link
                             href="/zakat-calculator"
-                            className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-white/20 backdrop-blur-xs text-white font-july font-bold text-[10px] border border-white/25 shrink-0 cursor-pointer"
+                            className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-white/20 hover:bg-white/30 backdrop-blur-xs active:scale-95 text-white font-july font-bold text-[10px] border border-white/25 shrink-0 cursor-pointer"
                           >
                             <Calculator className="w-3 h-3 text-amber-300" />
                             <span>যাকাত হিসাব</span>
@@ -183,17 +186,17 @@ export default function HomePage() {
                                   setSlideIdx((slideIdx - 1 + slides.length) % slides.length)
                                 }
                                 aria-label="Previous slide"
-                                className="p-0.5 rounded bg-black/40 text-white/80 hover:text-white cursor-pointer"
+                                className="p-1 rounded bg-black/40 hover:bg-black/60 text-white/90 hover:text-white transition cursor-pointer"
                               >
-                                <ChevronLeft className="w-3.5 h-3.5" />
+                                <ChevronLeft className="w-3 h-3" />
                               </button>
                               <button
                                 type="button"
                                 onClick={() => setSlideIdx((slideIdx + 1) % slides.length)}
                                 aria-label="Next slide"
-                                className="p-0.5 rounded bg-black/40 text-white/80 hover:text-white cursor-pointer"
+                                className="p-1 rounded bg-black/40 hover:bg-black/60 text-white/90 hover:text-white transition cursor-pointer"
                               >
-                                <ChevronRight className="w-3.5 h-3.5" />
+                                <ChevronRight className="w-3 h-3" />
                               </button>
                             </div>
                           </div>
