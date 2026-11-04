@@ -134,7 +134,7 @@ export default function DonationWidget({
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl shadow-sky-900/10 border border-sky-100 overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-xl shadow-sky-900/10 border border-sky-100 overflow-hidden w-full max-w-full">
       {/* Header */}
       <div className="bg-gradient-to-r from-[#0f4c75] via-[#2375b8] to-[#1788bf] px-5 sm:px-6 py-4 text-white">
         <div className="flex items-center justify-between gap-2">
@@ -243,7 +243,7 @@ export default function DonationWidget({
         </div>
 
         {/* Payment Method Pills */}
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
           {[
             { id: "bkash", label: "বিকাশ", color: "border-pink-300 text-pink-700 bg-pink-50" },
             { id: "nagad", label: "নগদ", color: "border-orange-300 text-orange-700 bg-orange-50" },
@@ -254,7 +254,7 @@ export default function DonationWidget({
               key={pm.id}
               type="button"
               onClick={() => setPaymentMethod(pm.id)}
-              className={`py-1.5 px-2 rounded-lg text-xs font-july font-bold border transition cursor-pointer ${
+              className={`py-1.5 px-1 sm:px-2 rounded-lg text-[11px] sm:text-xs font-july font-bold border transition cursor-pointer truncate ${
                 paymentMethod === pm.id
                   ? `${pm.color} ring-2 ring-[#2375b8]/40`
                   : "border-slate-200 text-slate-600 bg-white hover:bg-slate-50"

@@ -71,22 +71,22 @@ export default function HomePage() {
   const currentSlide = slides[slideIdx];
 
   return (
-    <div className="space-y-16 sm:space-y-20 pb-16">
+    <div className="space-y-16 sm:space-y-20 pb-16 w-full max-w-full overflow-x-clip">
       {/* 1. URGENT APPEAL NOTICE RIBBON */}
-      <div className="bg-gradient-to-r from-rose-50 via-amber-50 to-sky-50 border-b border-rose-200/60 py-2.5 px-3 sm:px-6">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
-          <div className="flex items-center gap-2">
+      <div className="bg-gradient-to-r from-rose-50 via-amber-50 to-sky-50 border-b border-rose-200/60 py-2.5 px-3 sm:px-6 w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs sm:text-sm min-w-0">
+          <div className="flex items-center gap-2 min-w-0 w-full sm:w-auto">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-july font-bold text-[11px] shadow-xs shrink-0">
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
               জরুরি আবেদন
             </span>
-            <p className="text-slate-800 font-medium truncate">
+            <p className="text-slate-800 font-medium truncate min-w-0 flex-1">
               শীতবস্ত্র বিতরণ ও আশ্রয়হীন পরিবারের পুনর্বাসন তহবিল — অসহায় মানুষের পাশে দাঁড়ান
             </p>
           </div>
           <Link
             href="/donate/shelterhome"
-            className="inline-flex items-center gap-1 font-july font-bold text-[#0f4c75] hover:text-[#2375b8] underline underline-offset-4 decoration-rose-300 hover:decoration-[#2375b8] transition shrink-0"
+            className="inline-flex items-center gap-1 font-july font-bold text-[#0f4c75] hover:text-[#2375b8] underline underline-offset-4 decoration-rose-300 hover:decoration-[#2375b8] transition shrink-0 self-end sm:self-auto"
           >
             <span>এখনই অনুদান দিন</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -95,14 +95,14 @@ export default function HomePage() {
       </div>
 
       {/* 2. HERO SECTION: Dynamic Carousel + Compact Donation Widget */}
-      <section className="relative -mt-8 pt-6 px-4 overflow-hidden">
+      <section className="relative -mt-8 pt-6 px-3 sm:px-4 overflow-hidden w-full max-w-full">
         {/* Soft Background Ambient Light Gradients */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-200/40 rounded-full blur-3xl -z-10 pointer-events-none" />
         <div className="absolute top-1/3 right-10 w-80 h-80 bg-blue-100/50 rounded-full blur-3xl -z-10 pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start w-full">
           {/* Left 7 Columns: Responsive Hero Banner & Feature Cards */}
-          <div className="lg:col-span-7 flex flex-col">
+          <div className="lg:col-span-7 flex flex-col min-w-0 w-full">
             {/* HERO BANNER: Strict 16:9 on Mobile, 2.2:1 on Desktop */}
             <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-md shadow-slate-900/10 border border-slate-200/80 bg-[#082238] aspect-[16/9] lg:aspect-[2.2/1] w-full">
               {currentSlide ? (
@@ -320,39 +320,39 @@ export default function HomePage() {
 
             {/* BOTTOM FEATURE CARDS (TRUST INDICATORS) */}
             {/* Mobile: Compact 2-column grid | Desktop: Single horizontal row of 4 */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5 mt-2.5 sm:mt-3">
-              <div className="flex items-center gap-2 py-2 px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-emerald-300 transition-colors">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-2.5 mt-2.5 sm:mt-3 w-full">
+              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-emerald-300 transition-colors min-w-0">
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
-                <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate">
+                <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate min-w-0">
                   ১০০% শরীয়াহ সম্মত
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 py-2 px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-sky-300 transition-colors">
+              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-sky-300 transition-colors min-w-0">
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-sky-50 text-[#2375b8] flex items-center justify-center shrink-0">
                   <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
-                <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate">
+                <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate min-w-0">
                   ডিজিটাল মানি রিসিট
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 py-2 px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-amber-300 transition-colors">
+              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-amber-300 transition-colors min-w-0">
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
                   <BadgeCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
-                <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate">
+                <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate min-w-0">
                   সমাজসেবা নিবন্ধিত
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 py-2 px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-purple-300 transition-colors">
+              <div className="flex items-center gap-2 py-2 px-2 sm:px-2.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs hover:border-purple-300 transition-colors min-w-0">
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
                   <Video className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
-                <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate">
+                <span className="text-[11px] sm:text-xs font-july font-bold text-slate-800 truncate min-w-0">
                   ভিডিও ফিল্ড রিপোর্ট
                 </span>
               </div>
@@ -360,7 +360,7 @@ export default function HomePage() {
           </div>
 
           {/* Right 5 Columns: Quick Donation Widget */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 min-w-0 w-full">
             <DonationWidget campaigns={campaigns} compact />
           </div>
         </div>
