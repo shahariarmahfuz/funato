@@ -16,11 +16,6 @@ import {
   X,
   Flame,
   CheckCircle2,
-  Users,
-  Utensils,
-  GraduationCap,
-  Briefcase,
-  MapPin,
   FileText,
   BadgeCheck,
   Video,
@@ -74,31 +69,6 @@ export default function HomePage() {
   ];
 
   const currentSlide = slides[slideIdx];
-  const impactStats = data?.settings?.impact_stats || settings.impact_stats || [];
-
-  // Decorative icon mapping for 4 impact stats
-  const statIcons = [
-    {
-      icon: Users,
-      bg: "bg-sky-50 text-[#2375b8] border-sky-100",
-      accent: "text-[#2375b8]",
-    },
-    {
-      icon: Utensils,
-      bg: "bg-emerald-50 text-emerald-600 border-emerald-100",
-      accent: "text-emerald-700",
-    },
-    {
-      icon: Briefcase,
-      bg: "bg-amber-50 text-amber-600 border-amber-100",
-      accent: "text-amber-700",
-    },
-    {
-      icon: MapPin,
-      bg: "bg-purple-50 text-purple-600 border-purple-100",
-      accent: "text-purple-700",
-    },
-  ];
 
   return (
     <div className="space-y-16 sm:space-y-20 pb-16">
@@ -258,149 +228,9 @@ export default function HomePage() {
             <DonationWidget campaigns={campaigns} compact />
           </div>
         </div>
-
-        {/* 3. IMPACT COUNTER CARDS STRIP */}
-        <div className="max-w-7xl mx-auto mt-10 sm:mt-12">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-            {impactStats.map((st, idx) => {
-              const theme = statIcons[idx % statIcons.length];
-              const IconComp = theme.icon;
-              return (
-                <div
-                  key={idx}
-                  className="group bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-2xs hover:shadow-lg hover:-translate-y-1 hover:border-sky-300 transition-all duration-300 flex flex-col justify-between"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <div
-                      className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl ${theme.bg} border flex items-center justify-center group-hover:scale-110 transition-transform`}
-                    >
-                      <IconComp className="w-5 h-5 sm:w-6 sm:h-6" />
-                    </div>
-                    <span className="text-[10px] sm:text-xs font-bold text-slate-400 bg-slate-50 px-2 py-0.5 rounded-full">
-                      অফিশিয়াল
-                    </span>
-                  </div>
-                  <div>
-                    <div className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75] tracking-tight">
-                      {st.value_bn}
-                    </div>
-                    <div className="text-xs sm:text-sm text-slate-600 mt-1 font-medium line-clamp-1">
-                      {st.label_bn}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
       </section>
 
-      {/* 4. CORE HUMANITARIAN PILLARS (আমাদের ৪টি মূল স্তম্ভ) */}
-      <section className="max-w-7xl mx-auto px-4">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="inline-block px-3.5 py-1 rounded-full bg-sky-100 text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
-            মানবতার সেবায় কার্যক্রম
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75]">
-            ভ্রাতৃত্ব ফাউন্ডেশনের প্রধান মানবিক স্তম্ভসমূহ
-          </h2>
-          <p className="text-slate-600 mt-2 text-sm sm:text-base">
-            আপনার সাদাকাহ ও যাকাতের সঠিক ব্যবস্থাপনায় পরিচালিত স্থায়ী সেবামূলক উদ্যোগ
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {/* Pillar 1: মেহমানখানা */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-emerald-300 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition duration-300">
-                <Utensils className="w-6 h-6" />
-              </div>
-              <h3 className="font-july font-bold text-lg text-[#0f4c75] group-hover:text-emerald-700 transition">
-                ইসলামিক মেহমানখানা
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                প্রতিদিন সুবিধাবঞ্চিত পথশিশু, বৃদ্ধ ও ছিন্নমূল মানুষের মাঝে পুষ্টিকর উষ্ণ খাবার পরিবেশন।
-              </p>
-            </div>
-            <Link
-              href="/donate/mehmankhana"
-              className="mt-4 pt-3 border-t border-slate-100 inline-flex items-center justify-between text-xs font-july font-bold text-emerald-700 hover:text-emerald-800"
-            >
-              <span>এক বেলার খাবার দিন</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
-            </Link>
-          </div>
-
-          {/* Pillar 2: শেল্টারহোম ও এতিমখানা */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-[#2375b8] hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-[#2375b8] flex items-center justify-center group-hover:bg-[#2375b8] group-hover:text-white transition duration-300">
-                <GraduationCap className="w-6 h-6" />
-              </div>
-              <h3 className="font-july font-bold text-lg text-[#0f4c75] group-hover:text-[#2375b8] transition">
-                শেল্টারহোম ও এতিমখানা
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                আশ্রয়হীন এতিম শিশুদের স্থায়ী আবাসন, মানসম্মত দ্বীনি শিক্ষা ও নিরাপদ ভবিষ্যৎ বিনির্মাণ।
-              </p>
-            </div>
-            <Link
-              href="/donate/shelterhome"
-              className="mt-4 pt-3 border-t border-slate-100 inline-flex items-center justify-between text-xs font-july font-bold text-[#2375b8] hover:text-[#0f4c75]"
-            >
-              <span>এতিমের দায়িত্ব নিন</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
-            </Link>
-          </div>
-
-          {/* Pillar 3: যাকাত স্বাবলম্বীকরণ */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-amber-400 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition duration-300">
-                <Briefcase className="w-6 h-6" />
-              </div>
-              <h3 className="font-july font-bold text-lg text-[#0f4c75] group-hover:text-amber-700 transition">
-                যাকাত স্বাবলম্বীকরণ
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                সেলাই মেশিন, ভ্যানগাড়ি ও ক্ষুদ্র পুঁজি বিতরণের মাধ্যমে স্থায়ী জীবিকার স্থায়ী নিশ্চয়তা।
-              </p>
-            </div>
-            <Link
-              href="/donate/zakat"
-              className="mt-4 pt-3 border-t border-slate-100 inline-flex items-center justify-between text-xs font-july font-bold text-amber-700 hover:text-amber-800"
-            >
-              <span>পরিবার স্বাবলম্বী করুন</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
-            </Link>
-          </div>
-
-          {/* Pillar 4: অ্যাম্বুলেন্স ও দাফন সেবা */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition duration-300">
-                <Heart className="w-6 h-6" />
-              </div>
-              <h3 className="font-july font-bold text-lg text-[#0f4c75] group-hover:text-purple-700 transition">
-                দাফন ও অ্যাম্বুলেন্স সেবা
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                বেওয়ারিশ ও অসহায় লাশের ফ্রি গোসল, কাফন-দাফন ও জরুরি অ্যাম্বুলেন্স সহায়তা প্রদান।
-              </p>
-            </div>
-            <Link
-              href="/donate/burial-service"
-              className="mt-4 pt-3 border-t border-slate-100 inline-flex items-center justify-between text-xs font-july font-bold text-purple-700 hover:text-purple-800"
-            >
-              <span>দাফন তহবিলে দিন</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. ACTIVE CAMPAIGNS & HUMANITARIAN FUNDS */}
+      {/* ACTIVE CAMPAIGNS & HUMANITARIAN FUNDS */}
       <section className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
