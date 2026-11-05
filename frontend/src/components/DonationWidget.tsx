@@ -143,7 +143,7 @@ export default function DonationWidget({
               ? `${lockedCampaign.name_bn}-এ অনুদান দিন`
               : `${settings.org_name_bn}-কে অনুদান দিন`}
           </h2>
-          <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0 border border-white/15">
+          <div className="w-8 h-8 rounded-md bg-white/10 flex items-center justify-center shrink-0 border border-white/15">
             <Heart className="w-4 h-4 fill-rose-300 text-rose-300" />
           </div>
         </div>

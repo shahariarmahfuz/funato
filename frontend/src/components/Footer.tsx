@@ -34,7 +34,7 @@ export default function Footer() {
       <section className="bg-slate-50/90 border-t border-slate-200/80 py-14 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-sky-100/80 text-[#1d6fad] font-july font-bold text-sm mb-2">
+            <span className="inline-block px-3 py-1 rounded-sm bg-sky-100/80 text-[#1d6fad] border border-sky-200/50 font-july font-bold text-sm mb-2">
               ব্যাংক ও মোবাইল ব্যাংকিং
             </span>
             <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0a2540]">

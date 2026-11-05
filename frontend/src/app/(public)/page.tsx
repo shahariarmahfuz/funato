@@ -72,15 +72,15 @@ export default function HomePage() {
 
   return (
     <div className="pb-16 w-full max-w-full overflow-x-clip">
-      {/* 1. URGENT APPEAL NOTICE RIBBON (Strict single-line news ticker) */}
-      <div className="bg-rose-50/95 border-b border-rose-200/80 h-9 sm:h-10 px-2.5 sm:px-6 w-full overflow-hidden flex items-center">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4 w-full h-full text-xs sm:text-sm">
-          {/* Left: Compact Badge */}
+      {/* 1. URGENT APPEAL NOTICE RIBBON (Crisp rectangular editorial badge, NO circle curve) */}
+      <div className="bg-white border-b border-slate-200/90 h-9 sm:h-10 px-3 sm:px-6 w-full overflow-hidden flex items-center shadow-2xs">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 sm:gap-4 w-full h-full text-xs sm:text-sm">
+          {/* Left: Sharp rectangular news badge */}
           <Link
             href="/donate/shelterhome"
-            className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-july font-bold text-[10px] sm:text-[11px] shadow-xs shrink-0 z-10"
+            className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm bg-red-600 hover:bg-red-700 text-white font-july font-bold text-xs tracking-wide shrink-0 z-10 shadow-2xs transition"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
+            <Flame className="w-3.5 h-3.5 text-amber-300" />
             <span>জরুরি আবেদন</span>
           </Link>
 
@@ -89,14 +89,14 @@ export default function HomePage() {
             <div className="animate-marquee gap-8 items-center py-1">
               <Link
                 href="/donate/shelterhome"
-                className="text-slate-800 hover:text-rose-700 font-medium transition cursor-pointer text-xs sm:text-sm"
+                className="text-slate-800 hover:text-red-700 font-medium transition cursor-pointer text-xs sm:text-sm"
               >
                 শীতবস্ত্র বিতরণ ও আশ্রয়হীন পরিবারের পুনর্বাসন তহবিল — অসহায় মানুষের পাশে দাঁড়ান এবং সহায়তা প্রদান করুন
               </Link>
-              <span className="text-rose-400 font-bold">•</span>
+              <span className="text-red-500 font-bold">•</span>
               <Link
                 href="/donate/shelterhome"
-                className="text-slate-800 hover:text-rose-700 font-medium transition cursor-pointer text-xs sm:text-sm"
+                className="text-slate-800 hover:text-red-700 font-medium transition cursor-pointer text-xs sm:text-sm"
               >
                 শীতবস্ত্র বিতরণ ও আশ্রয়হীন পরিবারের পুনর্বাসন তহবিল — অসহায় মানুষের পাশে দাঁড়ান এবং সহায়তা প্রদান করুন
               </Link>
@@ -106,7 +106,7 @@ export default function HomePage() {
           {/* Right: Fixed Action Link (Hidden on mobile so text has full width, visible on sm+) */}
           <Link
             href="/donate/shelterhome"
-            className="hidden sm:inline-flex items-center gap-1 font-july font-bold text-rose-700 hover:text-rose-900 underline underline-offset-4 decoration-rose-300 hover:decoration-rose-700 transition shrink-0 z-10 text-xs"
+            className="hidden sm:inline-flex items-center gap-1 font-july font-bold text-red-600 hover:text-red-800 underline underline-offset-4 decoration-red-300 hover:decoration-red-600 transition shrink-0 z-10 text-xs"
           >
             <span>এখনই অনুদান দিন</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -116,10 +116,6 @@ export default function HomePage() {
 
       {/* 2. HERO SECTION: Seamless top alignment with 0 gap on mobile */}
       <section className="relative pt-0 sm:pt-4 px-0 sm:px-4 overflow-hidden w-full max-w-full">
-        {/* Soft Background Ambient Light Gradients */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-200/40 rounded-full blur-3xl -z-10 pointer-events-none" />
-        <div className="absolute top-1/3 right-10 w-80 h-80 bg-blue-100/50 rounded-full blur-3xl -z-10 pointer-events-none" />
-
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-start w-full">
           {/* Left 7 Columns: Responsive Hero Banner & Feature Cards */}
           <div className="lg:col-span-7 flex flex-col min-w-0 w-full">
@@ -171,7 +167,7 @@ export default function HomePage() {
                         </span>
 
                         {slides.length > 1 && (
-                          <div className="flex items-center gap-1 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full border border-white/20">
+                          <div className="flex items-center gap-1.5 bg-black/75 backdrop-blur-xs px-2 py-0.5 rounded-sm border border-white/20">
                             <span className="text-[10px] text-slate-300 font-mono font-bold mr-0.5">
                               {toBnDigits(slideIdx + 1)}/{toBnDigits(slides.length)}
                             </span>
@@ -185,8 +181,8 @@ export default function HomePage() {
                                   setSlideIdx(idx);
                                 }}
                                 aria-label={`Slide ${idx + 1}`}
-                                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                                  idx === slideIdx ? "w-3 bg-sky-400" : "w-1.5 bg-white/40"
+                                className={`h-1 rounded-xs transition-all duration-300 cursor-pointer ${
+                                  idx === slideIdx ? "w-3.5 bg-sky-400" : "w-1.5 bg-white/40"
                                 }`}
                               />
                             ))}
@@ -396,7 +392,7 @@ export default function HomePage() {
         <section className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <span className="inline-block px-3.5 py-1 rounded-full bg-[#f0f7fd] text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
+            <span className="inline-block px-3 py-1 rounded-sm bg-sky-50 text-[#1d6fad] border border-sky-100 font-july font-bold text-xs sm:text-sm mb-2">
               চলমান মানবিক তহবিল
             </span>
             <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75]">
@@ -508,7 +504,7 @@ export default function HomePage() {
       {/* 7. WHY TRUST US? (স্বচ্ছতা ও জবাবদিহিতা) */}
       <section className="max-w-7xl mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="inline-block px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-july font-bold text-xs sm:text-sm mb-2">
+          <span className="inline-block px-3 py-1 rounded-sm bg-emerald-50 text-emerald-800 border border-emerald-100 font-july font-bold text-xs sm:text-sm mb-2">
             স্বচ্ছতা ও জবাবদিহিতা
           </span>
           <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75]">
@@ -575,7 +571,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end justify-between gap-4 mb-8">
             <div>
-              <span className="inline-block px-3.5 py-1 rounded-full bg-sky-100 text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
+              <span className="inline-block px-3 py-1 rounded-sm bg-sky-50 text-[#1d6fad] border border-sky-100 font-july font-bold text-xs sm:text-sm mb-2">
                 ভিডিও ডকুমেন্টারি
               </span>
               <h2 className="text-2xl sm:text-3xl font-july font-bold text-[#0f4c75]">
