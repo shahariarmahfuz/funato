@@ -108,11 +108,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/gov-tax-rebate" className="hover:text-sky-300 transition">
-                  আয়কর রেয়াত ও রশিদ যাচাই
-                </Link>
-              </li>
-              <li>
                 <Link href="/contact" className="hover:text-sky-300 transition">
                   যোগাযোগ করুন
                 </Link>
@@ -146,9 +141,6 @@ export default function Footer() {
             © {new Date().getFullYear()} {settings.org_name_bn}। সর্বস্বত্ব সংরক্ষিত।
           </p>
           <div className="flex items-center gap-4">
-            <Link href="/gov-tax-rebate" className="hover:text-white transition">
-              রশিদ যাচাই
-            </Link>
             <Link href="/admin" className="hover:text-white transition">
               অ্যাডমিন প্যানেল
             </Link>

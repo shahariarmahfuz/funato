@@ -239,7 +239,7 @@ export default function AdminSettingsPage() {
             </button>
           </div>
           <div className="space-y-2.5">
-            {(settings.mobile_banking || []).map((mb, idx) => (
+            {(settings.mobile_banking || []).map((mb: any, idx: number) => (
               <div key={idx} className="flex items-center gap-3">
                 <input
                   value={mb.label}
@@ -264,7 +264,7 @@ export default function AdminSettingsPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    const next = settings.mobile_banking.filter((_, i) => i !== idx);
+                    const next = settings.mobile_banking.filter((_: any, i: number) => i !== idx);
                     setSettings({ ...settings, mobile_banking: next });
                   }}
                   className="p-2 rounded-lg bg-rose-50 text-rose-600 cursor-pointer"

@@ -149,17 +149,10 @@ export default function AboutPage() {
         <div className="flex flex-wrap justify-center gap-3 pt-2">
           <Link
             href="/donate"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-[#0f4c75] font-july font-bold"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-[#0f4c75] font-july font-bold hover:bg-slate-50 transition"
           >
             <Heart className="w-4 h-4 fill-[#2375b8] text-[#2375b8]" />
             <span>{t("অনুদান প্রদান করুন", "Donate Now")}</span>
-          </Link>
-          <Link
-            href="/gov-tax-rebate"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/15 text-white font-july font-bold"
-          >
-            <ShieldCheck className="w-4 h-4" />
-            <span>{t("কর রেয়াত তথ্য", "Tax Rebate Info")}</span>
           </Link>
         </div>
       </section>

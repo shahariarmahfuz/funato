@@ -169,14 +169,7 @@ export default function Navbar() {
             </div>
 
             {/* Discreet Admin Login at the very bottom of the drawer */}
-            <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400 px-1">
-              <Link
-                href="/gov-tax-rebate"
-                onClick={() => setMobileOpen(false)}
-                className="hover:text-slate-600 transition"
-              >
-                আয়কর রেয়াত
-              </Link>
+            <div className="pt-2 border-t border-slate-100 flex items-center justify-end text-xs text-slate-400 px-1">
               <Link
                 href="/admin"
                 onClick={() => setMobileOpen(false)}

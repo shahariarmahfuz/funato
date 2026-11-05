@@ -385,18 +385,6 @@ export default function DonationWidget({
             </>
           )}
         </button>
-
-        {/* Mastul Tax Rebate Notice */}
-        <div className="pt-1 text-center text-xs text-slate-600 flex items-center justify-center gap-1.5 flex-wrap">
-          <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>দান করলে কর মওকুফ পাবেন।</span>
-          <Link
-            href="/gov-tax-rebate"
-            className="text-[#1d6fad] font-july font-bold hover:underline"
-          >
-            বিস্তারিত জানতে ক্লিক করুন।
-          </Link>
-        </div>
       </form>
     </div>
   );
