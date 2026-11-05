@@ -147,9 +147,24 @@ export default function HomePage() {
                     </Link>
 
                     {/* Layer 3: Mobile Content pinned at Bottom (Top is completely clear!) */}
-                    <div className="absolute inset-0 z-10 p-3 sm:p-4 flex flex-col justify-end pointer-events-none text-white space-y-1 sm:space-y-1.5">
-                      {/* Line 1: Badge on Left & Carousel Controls on Right (Shifted to bottom as requested) */}
-                      <div className="flex items-center justify-between gap-2 pointer-events-auto">
+                    <div className="absolute inset-0 z-10 p-3 sm:p-4 flex flex-col justify-end pointer-events-none text-white space-y-1.5">
+                      {/* Photo Text on Top: Heading & 2-Line Subtitle */}
+                      <Link
+                        href={currentSlide.cta_link || "/donate"}
+                        className="pointer-events-auto block group"
+                      >
+                        <h1 className="text-[13px] sm:text-base font-july font-bold leading-tight sm:leading-snug text-white drop-shadow-md group-hover:text-sky-300 transition line-clamp-1 sm:line-clamp-2">
+                          {currentSlide.title_bn}
+                        </h1>
+                        {currentSlide.subtitle_bn && (
+                          <p className="text-[10px] sm:text-xs text-slate-200 line-clamp-2 leading-relaxed font-normal drop-shadow-sm mt-0.5">
+                            {currentSlide.subtitle_bn}
+                          </p>
+                        )}
+                      </Link>
+
+                      {/* Under Photo Text: Badge on Left & Slide Number / Controls on Right */}
+                      <div className="flex items-center justify-between gap-2 pointer-events-auto pt-0.5">
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm bg-sky-600/90 backdrop-blur-xs text-[10px] font-july font-bold text-white shadow-xs border border-white/20">
                           <Sparkles className="w-2.5 h-2.5 text-amber-300" />
                           <span>{currentSlide.badge_bn}</span>
@@ -157,6 +172,9 @@ export default function HomePage() {
 
                         {slides.length > 1 && (
                           <div className="flex items-center gap-1 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full border border-white/20">
+                            <span className="text-[10px] text-slate-300 font-mono font-bold mr-0.5">
+                              {toBnDigits(slideIdx + 1)}/{toBnDigits(slides.length)}
+                            </span>
                             {slides.map((s, idx) => (
                               <button
                                 key={s.id}
@@ -168,7 +186,7 @@ export default function HomePage() {
                                 }}
                                 aria-label={`Slide ${idx + 1}`}
                                 className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                                  idx === slideIdx ? "w-3.5 bg-sky-400" : "w-1.5 bg-white/40"
+                                  idx === slideIdx ? "w-3 bg-sky-400" : "w-1.5 bg-white/40"
                                 }`}
                               />
                             ))}
@@ -201,21 +219,6 @@ export default function HomePage() {
                           </div>
                         )}
                       </div>
-
-                      {/* Line 2: Heading & Line 3: 2-Line Subtitle */}
-                      <Link
-                        href={currentSlide.cta_link || "/donate"}
-                        className="pointer-events-auto block group"
-                      >
-                        <h1 className="text-[13px] sm:text-base font-july font-bold leading-tight sm:leading-snug text-white drop-shadow-md group-hover:text-sky-300 transition line-clamp-1 sm:line-clamp-2">
-                          {currentSlide.title_bn}
-                        </h1>
-                        {currentSlide.subtitle_bn && (
-                          <p className="text-[10px] sm:text-xs text-slate-200 line-clamp-2 leading-relaxed font-normal drop-shadow-sm mt-0.5">
-                            {currentSlide.subtitle_bn}
-                          </p>
-                        )}
-                      </Link>
                     </div>
                   </div>
 
