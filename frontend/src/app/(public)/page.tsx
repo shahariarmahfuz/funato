@@ -72,19 +72,10 @@ export default function HomePage() {
 
   return (
     <div className="pb-16 w-full max-w-full overflow-x-clip">
-      {/* 1. URGENT APPEAL NOTICE RIBBON (Crisp rectangular editorial badge, NO circle curve) */}
+      {/* 1. CONTINUOUS NOTICE TICKER (Single-line marquee) */}
       <div className="bg-white border-b border-slate-200/90 h-9 sm:h-10 px-3 sm:px-6 w-full overflow-hidden flex items-center shadow-2xs">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 sm:gap-4 w-full h-full text-xs sm:text-sm">
-          {/* Left: Sharp rectangular news badge */}
-          <Link
-            href="/donate/shelterhome"
-            className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm bg-red-600 hover:bg-red-700 text-white font-july font-bold text-xs tracking-wide shrink-0 z-10 shadow-2xs transition"
-          >
-            <Flame className="w-3.5 h-3.5 text-amber-300" />
-            <span>জরুরি আবেদন</span>
-          </Link>
-
-          {/* Center: Infinite Marquee Ticker (Takes all available space on mobile) */}
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 w-full h-full text-xs sm:text-sm">
+          {/* Infinite Marquee Ticker (Spans full width across mobile & desktop) */}
           <div className="flex-1 overflow-hidden relative min-w-0 h-full flex items-center">
             <div className="animate-marquee gap-8 items-center py-1">
               <Link
@@ -741,51 +732,10 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Right 4 cols: Live Verified Donor Wall + Volunteer Invitation */}
+        {/* Right 4 cols: Volunteer Invitation */}
         <div className="lg:col-span-4 space-y-6">
-          {/* Live Verified Donors Box */}
-          <div className="bg-white rounded-none border border-sky-100 p-5 shadow-2xs">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-                <h3 className="font-july font-bold text-base sm:text-lg text-[#0f4c75]">
-                  লাইভ অনুদান আপডেট
-                </h3>
-              </div>
-              <span className="text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-sm font-bold">
-                ভেরিফাইড
-              </span>
-            </div>
-
-            <div className="space-y-2.5 max-h-80 overflow-y-auto pr-1">
-              {(data?.recent_donations || []).map((don) => (
-                <div
-                  key={don.id}
-                  className="flex items-center justify-between gap-2 p-3 rounded-none bg-[#f0f7fd]/70 border border-sky-100 text-sm hover:bg-sky-50 transition"
-                >
-                  <div className="min-w-0">
-                    <div className="font-july font-bold text-slate-800 truncate">
-                      {don.donor_name}
-                    </div>
-                    <div className="text-xs text-slate-500 truncate">
-                      {don.campaign_title_bn}
-                    </div>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <div className="font-july font-bold text-[#2375b8]">
-                      {formatBDT(don.amount, "bn")}
-                    </div>
-                    <div className="text-[10px] uppercase font-mono text-slate-400">
-                      {don.payment_method}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Volunteer CTA Card */}
-          <div className="rounded-none bg-gradient-to-br from-[#2375b8] to-[#0b2942] p-6 text-white space-y-3.5 shadow-md">
+          <div className="rounded-none bg-gradient-to-br from-[#1d6fad] to-[#0a2540] p-6 text-white space-y-3.5 shadow-md">
             <div className="w-10 h-10 rounded-sm bg-white/15 flex items-center justify-center text-sky-200">
               <UserPlus className="w-6 h-6" />
             </div>
@@ -797,7 +747,7 @@ export default function HomePage() {
             </p>
             <Link
               href="/be-a-volunteer"
-              className="inline-flex w-full items-center justify-center gap-2 py-2.5 rounded-sm bg-white text-[#0f4c75] font-july font-bold text-sm hover:bg-sky-50 shadow-sm transition"
+              className="inline-flex w-full items-center justify-center gap-2 py-2.5 rounded-sm bg-white text-[#0a2540] font-july font-bold text-sm hover:bg-sky-50 shadow-sm transition"
             >
               <span>নিবন্ধন ফর্ম পূরণ করুন</span>
               <ArrowRight className="w-4 h-4" />
