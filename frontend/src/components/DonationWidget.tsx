@@ -134,22 +134,25 @@ export default function DonationWidget({
   };
 
   return (
-    <div className="bg-white rounded-none shadow-sm sm:shadow-md border-y sm:border border-slate-200/90 overflow-hidden w-full max-w-full">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-[#0a2540] to-[#0f3d64] px-4 sm:px-6 py-4 text-white">
+    <div className="bg-white rounded-none sm:rounded-xl shadow-xs border-y sm:border border-slate-200/90 overflow-hidden w-full max-w-full">
+      {/* Clean Trustworthy Header (No harsh navy/pink clash) */}
+      <div className="bg-slate-50 border-b border-slate-200/90 px-4 sm:px-6 py-4">
         <div className="flex items-center justify-between gap-2">
-          <h2 className="text-lg sm:text-xl font-july font-bold">
-            {lockedCampaign
-              ? `${lockedCampaign.name_bn}-এ অনুদান দিন`
-              : `${settings.org_name_bn}-কে অনুদান দিন`}
-          </h2>
-          <div className="w-8 h-8 rounded-md bg-white/10 flex items-center justify-center shrink-0 border border-white/15">
-            <Heart className="w-4 h-4 fill-rose-300 text-rose-300" />
+          <div>
+            <h2 className="text-lg sm:text-xl font-july font-bold text-slate-900">
+              {lockedCampaign
+                ? `${lockedCampaign.name_bn}-এ অনুদান দিন`
+                : `${settings.org_name_bn}-কে অনুদান দিন`}
+            </h2>
+            <p className="text-xs text-slate-500 mt-0.5">
+              শতভাগ স্বচ্ছতা ও আমানতদারিতার সাথে পরিচালিত
+            </p>
           </div>
+          <span className="inline-flex items-center gap-1 text-[11px] font-july font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-sm shrink-0">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+            <span>শরীয়াহ সম্মত</span>
+          </span>
         </div>
-        <p className="text-xs text-sky-200/90 mt-0.5">
-          শতভাগ স্বচ্ছতা ও শরীয়াহ নীতিমালা অনুসরণে পরিচালিত
-        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4">
@@ -162,7 +165,7 @@ export default function DonationWidget({
             <select
               value={selectedSlug}
               onChange={(e) => handleCampaignChange(e.target.value)}
-              className="w-full rounded-sm border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-900 focus:border-[#2375b8] focus:bg-white focus:outline-none"
+              className="w-full rounded-sm border border-slate-300 bg-white px-3.5 py-2.5 text-sm font-medium text-slate-900 focus:border-[#1d6fad] focus:outline-none"
             >
               {campaigns.map((c) => (
                 <option key={c.id} value={c.slug}>
@@ -188,8 +191,8 @@ export default function DonationWidget({
                   onClick={() => setAmount(String(preset))}
                   className={`py-2 px-2 rounded-sm font-july font-bold text-xs sm:text-sm border transition cursor-pointer ${
                     selected
-                      ? "bg-[#2375b8] text-white border-[#2375b8] shadow-xs"
-                      : "bg-[#f0f7fd] text-[#0f4c75] border-sky-200 hover:border-[#2375b8]"
+                      ? "bg-[#1d6fad] text-white border-[#1d6fad] shadow-xs"
+                      : "bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
                   }`}
                 >
                   {formatBDT(preset, "bn")}
@@ -209,7 +212,7 @@ export default function DonationWidget({
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="অন্যান্য পরিমাণ লিখুন"
-              className="w-full rounded-sm border border-slate-300 pl-8 pr-4 py-2.5 text-base font-bold text-slate-900 focus:border-[#2375b8] focus:outline-none"
+              className="w-full rounded-sm border border-slate-300 bg-white pl-8 pr-4 py-2.5 text-base font-bold text-slate-900 focus:border-[#1d6fad] focus:outline-none"
             />
           </div>
         </div>
@@ -222,8 +225,8 @@ export default function DonationWidget({
               onClick={() => setCheckoutMode("instant")}
               className={`py-2 rounded-sm flex items-center justify-center gap-1.5 transition cursor-pointer ${
                 checkoutMode === "instant"
-                  ? "bg-white text-[#2375b8] shadow-xs"
-                  : "text-slate-600"
+                  ? "bg-white text-[#1d6fad] shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
               }`}
             >
               <CreditCard className="w-3.5 h-3.5" />
@@ -234,8 +237,8 @@ export default function DonationWidget({
               onClick={() => setCheckoutMode("manual")}
               className={`py-2 rounded-sm flex items-center justify-center gap-1.5 transition cursor-pointer ${
                 checkoutMode === "manual"
-                  ? "bg-white text-[#2375b8] shadow-xs"
-                  : "text-slate-600"
+                  ? "bg-white text-[#1d6fad] shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
               }`}
             >
               <Smartphone className="w-3.5 h-3.5" />
@@ -244,33 +247,36 @@ export default function DonationWidget({
           </div>
         </div>
 
-        {/* Payment Method Pills */}
+        {/* Payment Method Pills (Clean unified branding, no clownish rainbow colors) */}
         <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
           {[
-            { id: "bkash", label: "বিকাশ", color: "border-pink-300 text-pink-700 bg-pink-50" },
-            { id: "nagad", label: "নগদ", color: "border-orange-300 text-orange-700 bg-orange-50" },
-            { id: "rocket", label: "রকেট", color: "border-purple-300 text-purple-700 bg-purple-50" },
-            { id: "bank_transfer", label: "ব্যাংক / কার্ড", color: "border-sky-300 text-sky-800 bg-sky-50" },
-          ].map((pm) => (
-            <button
-              key={pm.id}
-              type="button"
-              onClick={() => setPaymentMethod(pm.id)}
-              className={`py-1.5 px-1 sm:px-2 rounded-sm text-[11px] sm:text-xs font-july font-bold border transition cursor-pointer truncate ${
-                paymentMethod === pm.id
-                  ? `${pm.color} ring-2 ring-[#2375b8]/40`
-                  : "border-slate-200 text-slate-600 bg-white hover:bg-slate-50"
-              }`}
-            >
-              {pm.label}
-            </button>
-          ))}
+            { id: "bkash", label: "বিকাশ" },
+            { id: "nagad", label: "নগদ" },
+            { id: "rocket", label: "রকেট" },
+            { id: "bank_transfer", label: "ব্যাংক / কার্ড" },
+          ].map((pm) => {
+            const selected = paymentMethod === pm.id;
+            return (
+              <button
+                key={pm.id}
+                type="button"
+                onClick={() => setPaymentMethod(pm.id)}
+                className={`py-2 px-1 sm:px-2 rounded-sm text-[11px] sm:text-xs font-july font-bold border transition cursor-pointer truncate ${
+                  selected
+                    ? "border-[#1d6fad] bg-[#1d6fad]/10 text-[#1d6fad] shadow-xs"
+                    : "border-slate-200 text-slate-600 bg-white hover:border-slate-300 hover:bg-slate-50"
+                }`}
+              >
+                {pm.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Manual TrxID Fields */}
         {checkoutMode === "manual" && (
-          <div className="p-3 rounded-sm bg-amber-50 border border-amber-200 space-y-2.5 text-xs">
-            <p className="text-amber-900 font-medium">
+          <div className="p-3 rounded-sm bg-slate-50 border border-slate-200 space-y-2.5 text-xs">
+            <p className="text-slate-700 font-medium">
               প্রথমে আমাদের নাম্বারে ({settings.mobile_banking?.[0]?.number || "01730482278"}) টাকা পাঠিয়ে নিচে TrxID দিন:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -279,7 +285,7 @@ export default function DonationWidget({
                 value={senderNumber}
                 onChange={(e) => setSenderNumber(e.target.value)}
                 placeholder="প্রেরকের নম্বর (যেমন 017...)"
-                className="rounded-sm border border-amber-300 bg-white px-3 py-2 text-sm text-slate-800"
+                className="rounded-sm border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:border-[#1d6fad] focus:outline-none"
               />
               <input
                 type="text"
@@ -287,7 +293,7 @@ export default function DonationWidget({
                 value={transactionId}
                 onChange={(e) => setTransactionId(e.target.value)}
                 placeholder="ট্রানজেকশন আইডি (TrxID) *"
-                className="rounded-sm border border-amber-300 bg-white px-3 py-2 text-sm text-slate-800"
+                className="rounded-sm border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 focus:border-[#1d6fad] focus:outline-none"
               />
             </div>
           </div>
@@ -305,7 +311,7 @@ export default function DonationWidget({
               value={donorName}
               onChange={(e) => setDonorName(e.target.value)}
               placeholder="আপনার নাম লিখুন"
-              className="w-full rounded-sm border border-slate-300 px-3.5 py-2 text-sm text-slate-900 focus:border-[#2375b8] focus:outline-none"
+              className="w-full rounded-sm border border-slate-300 bg-white px-3.5 py-2 text-sm text-slate-900 focus:border-[#1d6fad] focus:outline-none"
             />
           </div>
           <div>
@@ -318,7 +324,7 @@ export default function DonationWidget({
               value={donorPhone}
               onChange={(e) => setDonorPhone(e.target.value)}
               placeholder="01XXXXXXXXX"
-              className="w-full rounded-sm border border-slate-300 px-3.5 py-2 text-sm text-slate-900 focus:border-[#2375b8] focus:outline-none"
+              className="w-full rounded-sm border border-slate-300 bg-white px-3.5 py-2 text-sm text-slate-900 focus:border-[#1d6fad] focus:outline-none"
             />
           </div>
         </div>
@@ -330,14 +336,14 @@ export default function DonationWidget({
               value={donorEmail}
               onChange={(e) => setDonorEmail(e.target.value)}
               placeholder="ইমেইল (ঐচ্ছিক - রশিদের জন্য)"
-              className="w-full rounded-sm border border-slate-200 px-3.5 py-2 text-sm text-slate-900 focus:border-[#2375b8] focus:outline-none"
+              className="w-full rounded-sm border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 focus:border-[#1d6fad] focus:outline-none"
             />
             <input
               type="text"
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="দোয়া বা মন্তব্য (ঐচ্ছিক)"
-              className="w-full rounded-sm border border-slate-200 px-3.5 py-2 text-sm text-slate-900 focus:border-[#2375b8] focus:outline-none"
+              className="w-full rounded-sm border border-slate-200 bg-white px-3.5 py-2 text-sm text-slate-900 focus:border-[#1d6fad] focus:outline-none"
             />
           </div>
         )}
@@ -347,7 +353,7 @@ export default function DonationWidget({
             type="checkbox"
             checked={isAnonymous}
             onChange={(e) => setIsAnonymous(e.target.checked)}
-            className="rounded border-slate-300 text-[#2375b8]"
+            className="rounded border-slate-300 text-[#1d6fad]"
           />
           <span>
             ডোনার তালিকায় আমার নাম গোপন রাখুন (জনৈক দাতা)
@@ -363,7 +369,7 @@ export default function DonationWidget({
         <button
           type="submit"
           disabled={submitting}
-          className="w-full py-3.5 px-5 rounded-sm bg-gradient-to-r from-[#2375b8] to-[#1788bf] hover:from-[#1b619c] hover:to-[#1374a6] text-white font-july font-bold text-base shadow-md flex items-center justify-center gap-2 transition disabled:opacity-60 cursor-pointer"
+          className="w-full py-3.5 px-5 rounded-sm bg-[#1d6fad] hover:bg-[#165a8e] active:scale-[0.99] text-white font-july font-bold text-base shadow-sm hover:shadow-md flex items-center justify-center gap-2 transition disabled:opacity-60 cursor-pointer"
         >
           {submitting ? (
             <>
@@ -386,7 +392,7 @@ export default function DonationWidget({
           <span>দান করলে কর মওকুফ পাবেন।</span>
           <Link
             href="/gov-tax-rebate"
-            className="text-[#2375b8] font-july font-bold hover:underline"
+            className="text-[#1d6fad] font-july font-bold hover:underline"
           >
             বিস্তারিত জানতে ক্লিক করুন।
           </Link>
