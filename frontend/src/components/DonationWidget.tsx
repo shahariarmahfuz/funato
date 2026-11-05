@@ -134,18 +134,20 @@ export default function DonationWidget({
   };
 
   return (
-    <div className="bg-white rounded-none shadow-sm sm:shadow-md border-y sm:border border-sky-100 overflow-hidden w-full max-w-full">
+    <div className="bg-white rounded-none shadow-sm sm:shadow-md border-y sm:border border-slate-200/90 overflow-hidden w-full max-w-full">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#0f4c75] via-[#2375b8] to-[#1788bf] px-4 sm:px-6 py-4 text-white">
+      <div className="bg-gradient-to-r from-[#0a2540] to-[#0f3d64] px-4 sm:px-6 py-4 text-white">
         <div className="flex items-center justify-between gap-2">
           <h2 className="text-lg sm:text-xl font-july font-bold">
             {lockedCampaign
               ? `${lockedCampaign.name_bn}-এ অনুদান দিন`
               : `${settings.org_name_bn}-কে অনুদান দিন`}
           </h2>
-          <Heart className="w-5 h-5 fill-rose-300 text-rose-300 shrink-0" />
+          <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0 border border-white/15">
+            <Heart className="w-4 h-4 fill-rose-300 text-rose-300" />
+          </div>
         </div>
-        <p className="text-xs text-sky-100 mt-0.5">
+        <p className="text-xs text-sky-200/90 mt-0.5">
           শতভাগ স্বচ্ছতা ও শরীয়াহ নীতিমালা অনুসরণে পরিচালিত
         </p>
       </div>

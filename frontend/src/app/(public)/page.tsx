@@ -72,21 +72,38 @@ export default function HomePage() {
 
   return (
     <div className="space-y-16 sm:space-y-20 pb-16 w-full max-w-full overflow-x-clip">
-      {/* 1. URGENT APPEAL NOTICE RIBBON */}
-      <div className="bg-gradient-to-r from-rose-50 via-amber-50 to-sky-50 border-b border-rose-200/60 py-2.5 px-3 sm:px-6 w-full overflow-hidden">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs sm:text-sm min-w-0">
-          <div className="flex items-center gap-2 min-w-0 w-full sm:w-auto">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-july font-bold text-[11px] shadow-xs shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
-              জরুরি আবেদন
-            </span>
-            <p className="text-slate-800 font-medium truncate min-w-0 flex-1">
-              শীতবস্ত্র বিতরণ ও আশ্রয়হীন পরিবারের পুনর্বাসন তহবিল — অসহায় মানুষের পাশে দাঁড়ান
-            </p>
+      {/* 1. URGENT APPEAL NOTICE RIBBON (Strict single-line news ticker) */}
+      <div className="bg-rose-50/95 border-b border-rose-200/80 h-10 px-3 sm:px-6 w-full overflow-hidden flex items-center">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2.5 sm:gap-4 w-full h-full text-xs sm:text-sm">
+          {/* Left: Fixed Badge */}
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-july font-bold text-[11px] shadow-xs shrink-0 z-10">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
+            জরুরি আবেদন
+          </span>
+
+          {/* Center: Infinite Marquee Ticker */}
+          <div className="flex-1 overflow-hidden relative min-w-0 h-full flex items-center">
+            <div className="animate-marquee gap-8 items-center py-1">
+              <Link
+                href="/donate/shelterhome"
+                className="text-slate-800 hover:text-rose-700 font-medium transition cursor-pointer"
+              >
+                শীতবস্ত্র বিতরণ ও আশ্রয়হীন পরিবারের পুনর্বাসন তহবিল — অসহায় মানুষের পাশে দাঁড়ান এবং সহায়তা প্রদান করুন
+              </Link>
+              <span className="text-rose-400 font-bold">•</span>
+              <Link
+                href="/donate/shelterhome"
+                className="text-slate-800 hover:text-rose-700 font-medium transition cursor-pointer"
+              >
+                শীতবস্ত্র বিতরণ ও আশ্রয়হীন পরিবারের পুনর্বাসন তহবিল — অসহায় মানুষের পাশে দাঁড়ান এবং সহায়তা প্রদান করুন
+              </Link>
+            </div>
           </div>
+
+          {/* Right: Fixed Action Link */}
           <Link
             href="/donate/shelterhome"
-            className="inline-flex items-center gap-1 font-july font-bold text-[#0f4c75] hover:text-[#2375b8] underline underline-offset-4 decoration-rose-300 hover:decoration-[#2375b8] transition shrink-0 self-end sm:self-auto"
+            className="inline-flex items-center gap-1 font-july font-bold text-rose-700 hover:text-rose-900 underline underline-offset-4 decoration-rose-300 hover:decoration-rose-700 transition shrink-0 z-10 text-[11px] sm:text-xs"
           >
             <span>এখনই অনুদান দিন</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -103,105 +120,99 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-start w-full">
           {/* Left 7 Columns: Responsive Hero Banner & Feature Cards */}
           <div className="lg:col-span-7 flex flex-col min-w-0 w-full">
-            {/* HERO BANNER: Strict 16:9 on Mobile, 2.2:1 on Desktop */}
+            {/* HERO BANNER: Responsive height with bottom-anchored content */}
             <div className="relative rounded-none overflow-hidden shadow-sm border-y sm:border border-slate-200/80 bg-[#082238] aspect-[16/9] lg:aspect-[2.2/1] w-full">
               {currentSlide ? (
                 <>
                   {/* ============================================================
-                      A. MOBILE VIEW (< lg): Strict 16:9, Background Image + Overlay
+                      A. MOBILE VIEW (< lg): Strict 16:9 Aspect Ratio, Bottom-anchored Title & Details, NO Buttons
                       ============================================================ */}
                   <div className="lg:hidden absolute inset-0 w-full h-full">
-                    {/* Layer 1: Background Image */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={currentSlide.image_url}
-                      alt={currentSlide.title_bn}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    {/* Layer 2: Deep gradient overlay for Bengali readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/70 to-slate-950/30 pointer-events-none" />
+                    {/* Layer 1: Clickable Background Image */}
+                    <Link
+                      href={currentSlide.cta_link || "/donate"}
+                      className="absolute inset-0 w-full h-full block group cursor-pointer"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={currentSlide.image_url}
+                        alt={currentSlide.title_bn}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      {/* Layer 2: Gradient overlay (Clear at top for photo/faces, dark at bottom for text) */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 via-35% to-transparent pointer-events-none" />
+                    </Link>
 
-                    {/* Layer 3: Mobile Content (Directly pinned over the image) */}
-                    <div className="absolute inset-0 z-10 p-3 sm:p-4.5 flex flex-col justify-between text-white">
-                      {/* Top: Badge */}
-                      <div>
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm bg-sky-500/85 backdrop-blur-xs text-[10px] sm:text-xs font-july font-bold text-white shadow-xs border border-white/20">
+                    {/* Layer 3: Mobile Content pinned over the image */}
+                    <div className="absolute inset-0 z-10 p-3 sm:p-4 flex flex-col justify-between pointer-events-none text-white">
+                      {/* Top: Badge on Left & Carousel Controls on Right */}
+                      <div className="flex items-center justify-between gap-2 pointer-events-auto">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm bg-sky-500/90 backdrop-blur-xs text-[10px] sm:text-xs font-july font-bold text-white shadow-xs border border-white/20">
                           <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-300" />
                           <span>{currentSlide.badge_bn}</span>
                         </span>
-                      </div>
 
-                      {/* Middle: Headline & Description */}
-                      <div className="my-auto py-1">
-                        <h1 className="text-[13px] sm:text-base font-july font-bold leading-tight sm:leading-snug text-white drop-shadow-md line-clamp-2">
-                          {currentSlide.title_bn}
-                        </h1>
-                        {currentSlide.subtitle_bn && (
-                          <p className="text-[10px] sm:text-xs text-slate-200 line-clamp-1 leading-normal font-light mt-0.5 drop-shadow-sm">
-                            {currentSlide.subtitle_bn}
-                          </p>
-                        )}
-                      </div>
-
-                      {/* Bottom: Compact CTAs & Carousel Controls in single row */}
-                      <div className="flex items-center justify-between gap-1.5 pt-1 border-t border-white/15">
-                        {/* Horizontal Compact CTAs */}
-                        <div className="flex items-center gap-1.5 shrink-0">
-                          <Link
-                            href={currentSlide.cta_link || "/donate"}
-                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-sm bg-gradient-to-r from-[#2375b8] to-[#1788bf] active:scale-95 text-white font-july font-bold text-[11px] shadow-sm shrink-0 cursor-pointer"
-                          >
-                            <Heart className="w-3 h-3 fill-white" />
-                            <span>{currentSlide.cta_text_bn || "দান করুন"}</span>
-                          </Link>
-                          <Link
-                            href="/zakat-calculator"
-                            className="inline-flex items-center gap-1 px-2 py-1 rounded-sm bg-white/20 hover:bg-white/30 backdrop-blur-xs active:scale-95 text-white font-july font-bold text-[10px] border border-white/25 shrink-0 cursor-pointer"
-                          >
-                            <Calculator className="w-3 h-3 text-amber-300" />
-                            <span>যাকাত হিসাব</span>
-                          </Link>
-                        </div>
-
-                        {/* Carousel Controls */}
                         {slides.length > 1 && (
-                          <div className="flex items-center gap-1 shrink-0">
-                            <div className="flex items-center gap-1">
-                              {slides.map((s, idx) => (
-                                <button
-                                  key={s.id}
-                                  type="button"
-                                  onClick={() => setSlideIdx(idx)}
-                                  aria-label={`Slide ${idx + 1}`}
-                                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                                    idx === slideIdx ? "w-3.5 bg-sky-400" : "w-1.5 bg-white/40"
-                                  }`}
-                                />
-                              ))}
-                            </div>
-                            <div className="flex items-center ml-0.5">
+                          <div className="flex items-center gap-1 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full border border-white/20">
+                            {slides.map((s, idx) => (
+                              <button
+                                key={s.id}
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setSlideIdx(idx);
+                                }}
+                                aria-label={`Slide ${idx + 1}`}
+                                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                                  idx === slideIdx ? "w-3.5 bg-sky-400" : "w-1.5 bg-white/40"
+                                }`}
+                              />
+                            ))}
+                            <div className="flex items-center ml-1 border-l border-white/20 pl-1 gap-0.5">
                               <button
                                 type="button"
-                                onClick={() =>
-                                  setSlideIdx((slideIdx - 1 + slides.length) % slides.length)
-                                }
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setSlideIdx((slideIdx - 1 + slides.length) % slides.length);
+                                }}
                                 aria-label="Previous slide"
-                                className="p-1 rounded bg-black/40 hover:bg-black/60 text-white/90 hover:text-white transition cursor-pointer"
+                                className="p-0.5 text-white/90 hover:text-white transition cursor-pointer"
                               >
-                                <ChevronLeft className="w-3 h-3" />
+                                <ChevronLeft className="w-3.5 h-3.5" />
                               </button>
                               <button
                                 type="button"
-                                onClick={() => setSlideIdx((slideIdx + 1) % slides.length)}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setSlideIdx((slideIdx + 1) % slides.length);
+                                }}
                                 aria-label="Next slide"
-                                className="p-1 rounded bg-black/40 hover:bg-black/60 text-white/90 hover:text-white transition cursor-pointer"
+                                className="p-0.5 text-white/90 hover:text-white transition cursor-pointer"
                               >
-                                <ChevronRight className="w-3 h-3" />
+                                <ChevronRight className="w-3.5 h-3.5" />
                               </button>
                             </div>
                           </div>
                         )}
                       </div>
+
+                      {/* Bottom: Text block (Heading on top, 2 lines details below - NO buttons) */}
+                      <Link
+                        href={currentSlide.cta_link || "/donate"}
+                        className="pointer-events-auto block group pb-0.5"
+                      >
+                        <h1 className="text-[13px] sm:text-base font-july font-bold leading-tight sm:leading-snug text-white drop-shadow-md group-hover:text-sky-300 transition line-clamp-1 sm:line-clamp-2">
+                          {currentSlide.title_bn}
+                        </h1>
+                        {currentSlide.subtitle_bn && (
+                          <p className="text-[10px] sm:text-xs text-slate-200 line-clamp-2 leading-relaxed font-normal drop-shadow-sm mt-1">
+                            {currentSlide.subtitle_bn}
+                          </p>
+                        )}
+                      </Link>
                     </div>
                   </div>
 
@@ -218,15 +229,18 @@ export default function HomePage() {
                           <span>{currentSlide.badge_bn}</span>
                         </div>
 
-                        {/* Heading */}
-                        <h1 className="font-july font-bold text-lg xl:text-xl text-white leading-snug line-clamp-2 mt-2.5 tracking-tight">
-                          {currentSlide.title_bn}
-                        </h1>
-
-                        {/* Description */}
-                        <p className="text-xs text-slate-200 leading-relaxed line-clamp-2 font-light mt-1.5">
-                          {currentSlide.subtitle_bn}
-                        </p>
+                        {/* Heading & 2-line Description linking to distinct page */}
+                        <Link
+                          href={currentSlide.cta_link || "/donate"}
+                          className="block group mt-2.5"
+                        >
+                          <h1 className="font-july font-bold text-lg xl:text-xl text-white leading-snug line-clamp-2 tracking-tight group-hover:text-sky-300 transition">
+                            {currentSlide.title_bn}
+                          </h1>
+                          <p className="text-xs text-slate-200 leading-relaxed line-clamp-2 font-light mt-1.5">
+                            {currentSlide.subtitle_bn}
+                          </p>
+                        </Link>
                       </div>
 
                       {/* Bottom Area: CTAs + Controls */}
@@ -235,10 +249,11 @@ export default function HomePage() {
                         <div className="flex items-center gap-2">
                           <Link
                             href={currentSlide.cta_link || "/donate"}
-                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm bg-gradient-to-r from-[#2375b8] to-[#1788bf] hover:from-[#1b619c] hover:to-[#1374a6] text-white font-july font-bold text-xs shadow-sm hover:shadow-md transition cursor-pointer"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-sm bg-[#1d6fad] hover:bg-[#165a8e] text-white font-july font-bold text-xs shadow-sm hover:shadow-md transition cursor-pointer"
                           >
                             <Heart className="w-3.5 h-3.5 fill-white" />
                             <span>{currentSlide.cta_text_bn || "দান করুন"}</span>
+                            <ArrowRight className="w-3 h-3 ml-0.5" />
                           </Link>
                           <Link
                             href="/zakat-calculator"
@@ -296,18 +311,21 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    {/* Right 5 Columns: Slide Image */}
-                    <div className="lg:col-span-5 relative h-full overflow-hidden bg-slate-900">
+                    {/* Right 5 Columns: Clickable Slide Image */}
+                    <Link
+                      href={currentSlide.cta_link || "/donate"}
+                      className="lg:col-span-5 relative h-full overflow-hidden bg-slate-900 block group cursor-pointer"
+                    >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={currentSlide.image_url}
                         alt={currentSlide.title_bn}
-                        className="w-full h-full object-cover transition-all duration-700 hover:scale-105"
+                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
                       />
                       {/* Soft left gradient fade into text side */}
                       <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#0f3454] to-transparent pointer-events-none" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
-                    </div>
+                    </Link>
                   </div>
                 </>
               ) : (
@@ -425,7 +443,7 @@ export default function HomePage() {
 
       {/* 6. ZAKAT SELF-RELIANCE SPOTLIGHT BANNER */}
       <section className="px-0 sm:px-4">
-        <div className="max-w-7xl mx-auto rounded-none bg-gradient-to-r from-[#0b2942] via-[#0f4c75] to-[#1788bf] p-6 sm:p-12 text-white shadow-md border-y sm:border border-white/10 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto rounded-none bg-gradient-to-r from-[#0a2540] to-[#0f3d64] p-6 sm:p-12 text-white shadow-md border-y sm:border border-white/10 relative overflow-hidden">
           {/* Subtle Islamic Motif Background Decoration */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-2xl pointer-events-none" />
 
