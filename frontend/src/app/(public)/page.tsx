@@ -71,39 +71,42 @@ export default function HomePage() {
   const currentSlide = slides[slideIdx];
 
   return (
-    <div className="space-y-16 sm:space-y-20 pb-16 w-full max-w-full overflow-x-clip">
+    <div className="pb-16 w-full max-w-full overflow-x-clip">
       {/* 1. URGENT APPEAL NOTICE RIBBON (Strict single-line news ticker) */}
-      <div className="bg-rose-50/95 border-b border-rose-200/80 h-10 px-3 sm:px-6 w-full overflow-hidden flex items-center">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2.5 sm:gap-4 w-full h-full text-xs sm:text-sm">
-          {/* Left: Fixed Badge */}
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-july font-bold text-[11px] shadow-xs shrink-0 z-10">
+      <div className="bg-rose-50/95 border-b border-rose-200/80 h-9 sm:h-10 px-2.5 sm:px-6 w-full overflow-hidden flex items-center">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4 w-full h-full text-xs sm:text-sm">
+          {/* Left: Compact Badge */}
+          <Link
+            href="/donate/shelterhome"
+            className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-july font-bold text-[10px] sm:text-[11px] shadow-xs shrink-0 z-10"
+          >
             <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
-            জরুরি আবেদন
-          </span>
+            <span>জরুরি আবেদন</span>
+          </Link>
 
-          {/* Center: Infinite Marquee Ticker */}
+          {/* Center: Infinite Marquee Ticker (Takes all available space on mobile) */}
           <div className="flex-1 overflow-hidden relative min-w-0 h-full flex items-center">
             <div className="animate-marquee gap-8 items-center py-1">
               <Link
                 href="/donate/shelterhome"
-                className="text-slate-800 hover:text-rose-700 font-medium transition cursor-pointer"
+                className="text-slate-800 hover:text-rose-700 font-medium transition cursor-pointer text-xs sm:text-sm"
               >
                 শীতবস্ত্র বিতরণ ও আশ্রয়হীন পরিবারের পুনর্বাসন তহবিল — অসহায় মানুষের পাশে দাঁড়ান এবং সহায়তা প্রদান করুন
               </Link>
               <span className="text-rose-400 font-bold">•</span>
               <Link
                 href="/donate/shelterhome"
-                className="text-slate-800 hover:text-rose-700 font-medium transition cursor-pointer"
+                className="text-slate-800 hover:text-rose-700 font-medium transition cursor-pointer text-xs sm:text-sm"
               >
                 শীতবস্ত্র বিতরণ ও আশ্রয়হীন পরিবারের পুনর্বাসন তহবিল — অসহায় মানুষের পাশে দাঁড়ান এবং সহায়তা প্রদান করুন
               </Link>
             </div>
           </div>
 
-          {/* Right: Fixed Action Link */}
+          {/* Right: Fixed Action Link (Hidden on mobile so text has full width, visible on sm+) */}
           <Link
             href="/donate/shelterhome"
-            className="inline-flex items-center gap-1 font-july font-bold text-rose-700 hover:text-rose-900 underline underline-offset-4 decoration-rose-300 hover:decoration-rose-700 transition shrink-0 z-10 text-[11px] sm:text-xs"
+            className="hidden sm:inline-flex items-center gap-1 font-july font-bold text-rose-700 hover:text-rose-900 underline underline-offset-4 decoration-rose-300 hover:decoration-rose-700 transition shrink-0 z-10 text-xs"
           >
             <span>এখনই অনুদান দিন</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -111,8 +114,8 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 2. HERO SECTION: Dynamic Carousel + Compact Donation Widget */}
-      <section className="relative -mt-8 pt-4 sm:pt-6 px-0 sm:px-4 overflow-hidden w-full max-w-full">
+      {/* 2. HERO SECTION: Seamless top alignment with 0 gap on mobile */}
+      <section className="relative pt-0 sm:pt-4 px-0 sm:px-4 overflow-hidden w-full max-w-full">
         {/* Soft Background Ambient Light Gradients */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-200/40 rounded-full blur-3xl -z-10 pointer-events-none" />
         <div className="absolute top-1/3 right-10 w-80 h-80 bg-blue-100/50 rounded-full blur-3xl -z-10 pointer-events-none" />
@@ -125,7 +128,7 @@ export default function HomePage() {
               {currentSlide ? (
                 <>
                   {/* ============================================================
-                      A. MOBILE VIEW (< lg): Strict 16:9 Aspect Ratio, Bottom-anchored Title & Details, NO Buttons
+                      A. MOBILE VIEW (< lg): Strict 16:9 Aspect Ratio, Top 100% Clear, Controls & Details at Bottom
                       ============================================================ */}
                   <div className="lg:hidden absolute inset-0 w-full h-full">
                     {/* Layer 1: Clickable Background Image */}
@@ -139,16 +142,16 @@ export default function HomePage() {
                         alt={currentSlide.title_bn}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      {/* Layer 2: Gradient overlay (Clear at top for photo/faces, dark at bottom for text) */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 via-35% to-transparent pointer-events-none" />
+                      {/* Layer 2: Gradient overlay (Top 55% crystal clear, bottom 45% dark for readability) */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 via-45% to-transparent pointer-events-none" />
                     </Link>
 
-                    {/* Layer 3: Mobile Content pinned over the image */}
-                    <div className="absolute inset-0 z-10 p-3 sm:p-4 flex flex-col justify-between pointer-events-none text-white">
-                      {/* Top: Badge on Left & Carousel Controls on Right */}
+                    {/* Layer 3: Mobile Content pinned at Bottom (Top is completely clear!) */}
+                    <div className="absolute inset-0 z-10 p-3 sm:p-4 flex flex-col justify-end pointer-events-none text-white space-y-1 sm:space-y-1.5">
+                      {/* Line 1: Badge on Left & Carousel Controls on Right (Shifted to bottom as requested) */}
                       <div className="flex items-center justify-between gap-2 pointer-events-auto">
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm bg-sky-500/90 backdrop-blur-xs text-[10px] sm:text-xs font-july font-bold text-white shadow-xs border border-white/20">
-                          <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-300" />
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm bg-sky-600/90 backdrop-blur-xs text-[10px] font-july font-bold text-white shadow-xs border border-white/20">
+                          <Sparkles className="w-2.5 h-2.5 text-amber-300" />
                           <span>{currentSlide.badge_bn}</span>
                         </span>
 
@@ -199,16 +202,16 @@ export default function HomePage() {
                         )}
                       </div>
 
-                      {/* Bottom: Text block (Heading on top, 2 lines details below - NO buttons) */}
+                      {/* Line 2: Heading & Line 3: 2-Line Subtitle */}
                       <Link
                         href={currentSlide.cta_link || "/donate"}
-                        className="pointer-events-auto block group pb-0.5"
+                        className="pointer-events-auto block group"
                       >
                         <h1 className="text-[13px] sm:text-base font-july font-bold leading-tight sm:leading-snug text-white drop-shadow-md group-hover:text-sky-300 transition line-clamp-1 sm:line-clamp-2">
                           {currentSlide.title_bn}
                         </h1>
                         {currentSlide.subtitle_bn && (
-                          <p className="text-[10px] sm:text-xs text-slate-200 line-clamp-2 leading-relaxed font-normal drop-shadow-sm mt-1">
+                          <p className="text-[10px] sm:text-xs text-slate-200 line-clamp-2 leading-relaxed font-normal drop-shadow-sm mt-0.5">
                             {currentSlide.subtitle_bn}
                           </p>
                         )}
@@ -384,8 +387,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ACTIVE CAMPAIGNS & HUMANITARIAN FUNDS */}
-      <section className="max-w-7xl mx-auto px-4">
+      {/* 3. SUBSEQUENT CONTENT SECTIONS */}
+      <div className="space-y-16 sm:space-y-20 mt-10 sm:mt-14">
+        {/* ACTIVE CAMPAIGNS & HUMANITARIAN FUNDS */}
+        <section className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
             <span className="inline-block px-3.5 py-1 rounded-full bg-[#f0f7fd] text-[#2375b8] font-july font-bold text-xs sm:text-sm mb-2">
@@ -834,6 +839,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </div>
 
       {/* 12. VIDEO LIGHTBOX MODAL */}
       {playingVideo && (
