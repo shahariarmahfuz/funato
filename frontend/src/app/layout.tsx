@@ -13,10 +13,18 @@ export const metadata: Metadata = {
   description:
     "ভ্রাতৃত্ব ফাউন্ডেশন একটি অলাভজনক মানবিক দাতব্য সংস্থা। এতিমখানা, ইসলামিক শেল্টারহোম কমপ্লেক্স, মেহমানখানা, যাকাত স্বাবলম্বীকরণ ও জরুরি দুর্যোগ মোকাবিলায় অনুদান দিন।",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({

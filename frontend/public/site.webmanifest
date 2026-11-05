@@ -1,0 +1,21 @@
+{
+  "name": "ভ্রাতৃত্ব ফাউন্ডেশন",
+  "short_name": "ভ্রাতৃত্ব",
+  "description": "মানবতার কল্যাণে নিবেদিত অলাভজনক দাতব্য সংস্থা",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0f4c75",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/"
+}
