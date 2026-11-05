@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -35,6 +35,26 @@ export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [playingVideo, setPlayingVideo] = useState<MediaVideo | null>(null);
 
+  // Dynamic user controls: side arrows fade in on tap/hover and auto-hide
+  const [showControls, setShowControls] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const controlsTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const triggerControls = () => {
+    setShowControls(true);
+    if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current);
+    controlsTimerRef.current = setTimeout(() => {
+      setShowControls(false);
+    }, 3500);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current);
+    };
+  }, []);
+
   useEffect(() => {
     apiFetch<HomeBundle>("/api/public/home")
       .then((res) => setData(res))
@@ -50,6 +70,31 @@ export default function HomePage() {
     }, 6000);
     return () => clearInterval(timer);
   }, [slides.length]);
+
+  const minSwipeDistance = 40;
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+    triggerControls();
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe && slides.length > 1) {
+      setSlideIdx((prev) => (prev + 1) % slides.length);
+      triggerControls();
+    } else if (isRightSwipe && slides.length > 1) {
+      setSlideIdx((prev) => (prev - 1 + slides.length) % slides.length);
+      triggerControls();
+    }
+  };
 
   const campaigns = data?.campaigns || [];
   const filteredCampaigns =
@@ -117,21 +162,65 @@ export default function HomePage() {
                   {/* ============================================================
                       A. MOBILE VIEW (< lg): Strict 16:9 Aspect Ratio, Top 100% Clear, Controls & Details at Bottom
                       ============================================================ */}
-                  <div className="lg:hidden absolute inset-0 w-full h-full">
-                    {/* Layer 1: Clickable Background Image */}
-                    <Link
-                      href={currentSlide.cta_link || "/donate"}
-                      className="absolute inset-0 w-full h-full block group cursor-pointer"
-                    >
+                  <div
+                    className="lg:hidden absolute inset-0 w-full h-full select-none"
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                    onClick={() => triggerControls()}
+                  >
+                    {/* Layer 1: Background Image */}
+                    <div className="absolute inset-0 w-full h-full block">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={currentSlide.image_url}
                         alt={currentSlide.title_bn}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
                       />
                       {/* Layer 2: Gradient overlay (Top 55% crystal clear, bottom 45% dark for readability) */}
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 via-45% to-transparent pointer-events-none" />
-                    </Link>
+                    </div>
+
+                    {/* Floating Side Chevrons (Appear on tap/click, auto-hide after 3.5s to preserve minimalist style) */}
+                    {slides.length > 1 && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setSlideIdx((prev) => (prev - 1 + slides.length) % slides.length);
+                            triggerControls();
+                          }}
+                          aria-label="Previous slide"
+                          className={`absolute left-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/55 backdrop-blur-md border border-white/25 text-white flex items-center justify-center shadow-lg transition-all duration-300 cursor-pointer active:scale-90 ${
+                            showControls
+                              ? "opacity-100 scale-100 pointer-events-auto"
+                              : "opacity-0 scale-90 pointer-events-none"
+                          }`}
+                        >
+                          <ChevronLeft className="w-4 h-4 text-white" />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setSlideIdx((prev) => (prev + 1) % slides.length);
+                            triggerControls();
+                          }}
+                          aria-label="Next slide"
+                          className={`absolute right-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/55 backdrop-blur-md border border-white/25 text-white flex items-center justify-center shadow-lg transition-all duration-300 cursor-pointer active:scale-90 ${
+                            showControls
+                              ? "opacity-100 scale-100 pointer-events-auto"
+                              : "opacity-0 scale-90 pointer-events-none"
+                          }`}
+                        >
+                          <ChevronRight className="w-4 h-4 text-white" />
+                        </button>
+                      </>
+                    )}
 
                     {/* Layer 3: Mobile Content pinned at Bottom (Top is completely clear!) */}
                     <div className="absolute inset-0 z-10 p-3 sm:p-4 flex flex-col justify-end pointer-events-none text-white space-y-1.5">
@@ -162,7 +251,7 @@ export default function HomePage() {
                         )}
 
                         {slides.length > 1 && (
-                          <div className="flex items-center gap-1.5 shrink-0">
+                          <div className="flex items-center gap-0.5 shrink-0">
                             {slides.map((s, idx) => (
                               <button
                                 key={s.id}
@@ -171,12 +260,17 @@ export default function HomePage() {
                                   e.preventDefault();
                                   e.stopPropagation();
                                   setSlideIdx(idx);
+                                  triggerControls();
                                 }}
                                 aria-label={`Slide ${idx + 1}`}
-                                className={`h-1 rounded-full transition-all duration-300 cursor-pointer ${
-                                  idx === slideIdx ? "w-5 bg-white" : "w-1.5 bg-white/40 hover:bg-white/70"
-                                }`}
-                              />
+                                className="py-2 px-1 flex items-center cursor-pointer"
+                              >
+                                <span
+                                  className={`h-1 rounded-full transition-all duration-300 block ${
+                                    idx === slideIdx ? "w-5 bg-white" : "w-1.5 bg-white/40 hover:bg-white/70"
+                                  }`}
+                                />
+                              </button>
                             ))}
                           </div>
                         )}
