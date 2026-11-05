@@ -77,11 +77,11 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Right Controls: Compact Donate Button + Hamburger */}
+          {/* Right Controls: Compact Donate Button (Desktop/Tablet only) + Mobile Hamburger */}
           <div className="flex items-center gap-1.5 sm:gap-2.5">
             <Link
               href="/donate"
-              className="inline-flex items-center gap-1.5 bg-gradient-to-r from-[#2375b8] to-[#1788bf] hover:from-[#1b619c] hover:to-[#1374a6] text-white font-july font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm shadow-xs hover:shadow-sm transition cursor-pointer shrink-0"
+              className="hidden md:inline-flex items-center gap-1.5 bg-[#2375b8] hover:bg-[#1b619c] text-white font-july font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm shadow-xs hover:shadow-sm transition cursor-pointer shrink-0"
             >
               <Heart className="w-3.5 h-3.5 fill-white shrink-0" />
               <span>দান করুন</span>
@@ -93,7 +93,7 @@ export default function Navbar() {
               className="lg:hidden p-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-100 transition cursor-pointer"
               aria-label="Toggle Menu"
             >
-              {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -101,6 +101,16 @@ export default function Navbar() {
         {/* Mobile Drawer */}
         {mobileOpen && (
           <div className="lg:hidden border-t border-slate-100 bg-white px-4 py-3 space-y-2 shadow-xl animate-in fade-in duration-150">
+            {/* Prominent Donate Button inside Drawer */}
+            <Link
+              href="/donate"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-[#2375b8] hover:bg-[#1b619c] text-white font-july font-bold text-sm shadow-xs transition"
+            >
+              <Heart className="w-4 h-4 fill-white" />
+              <span>দান করুন</span>
+            </Link>
+
             {/* Quick Hotline Call Card */}
             <a
               href={`tel:${settings.phone_hotline}`}

@@ -150,18 +150,19 @@ export default function HomePage() {
                         )}
                       </Link>
 
-                      {/* Under Photo Text: Badge on Left & Slide Number / Controls on Right */}
+                      {/* Bottom Row: Mini Title Badge on Left & Sleek Tracking Dots on Right */}
                       <div className="flex items-center justify-between gap-2 pointer-events-auto pt-0.5">
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm bg-sky-600/90 backdrop-blur-xs text-[10px] font-july font-bold text-white shadow-xs border border-white/20">
-                          <Sparkles className="w-2.5 h-2.5 text-amber-300" />
-                          <span>{currentSlide.badge_bn}</span>
-                        </span>
+                        {currentSlide.badge_bn ? (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[10px] sm:text-xs font-july font-bold text-white border border-white/25 shadow-2xs">
+                            <Sparkles className="w-2.5 h-2.5 text-amber-300" />
+                            <span>{currentSlide.badge_bn}</span>
+                          </span>
+                        ) : (
+                          <div />
+                        )}
 
                         {slides.length > 1 && (
-                          <div className="flex items-center gap-1.5 bg-black/75 backdrop-blur-xs px-2 py-0.5 rounded-sm border border-white/20">
-                            <span className="text-[10px] text-slate-300 font-mono font-bold mr-0.5">
-                              {toBnDigits(slideIdx + 1)}/{toBnDigits(slides.length)}
-                            </span>
+                          <div className="flex items-center gap-1.5 shrink-0">
                             {slides.map((s, idx) => (
                               <button
                                 key={s.id}
@@ -172,37 +173,11 @@ export default function HomePage() {
                                   setSlideIdx(idx);
                                 }}
                                 aria-label={`Slide ${idx + 1}`}
-                                className={`h-1 rounded-xs transition-all duration-300 cursor-pointer ${
-                                  idx === slideIdx ? "w-3.5 bg-sky-400" : "w-1.5 bg-white/40"
+                                className={`h-1 rounded-full transition-all duration-300 cursor-pointer ${
+                                  idx === slideIdx ? "w-5 bg-white" : "w-1.5 bg-white/40 hover:bg-white/70"
                                 }`}
                               />
                             ))}
-                            <div className="flex items-center ml-1 border-l border-white/20 pl-1 gap-0.5">
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  setSlideIdx((slideIdx - 1 + slides.length) % slides.length);
-                                }}
-                                aria-label="Previous slide"
-                                className="p-0.5 text-white/90 hover:text-white transition cursor-pointer"
-                              >
-                                <ChevronLeft className="w-3.5 h-3.5" />
-                              </button>
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  setSlideIdx((slideIdx + 1) % slides.length);
-                                }}
-                                aria-label="Next slide"
-                                className="p-0.5 text-white/90 hover:text-white transition cursor-pointer"
-                              >
-                                <ChevronRight className="w-3.5 h-3.5" />
-                              </button>
-                            </div>
                           </div>
                         )}
                       </div>
@@ -216,16 +191,18 @@ export default function HomePage() {
                     {/* Left 7 Columns: Text Content */}
                     <div className="lg:col-span-7 flex flex-col justify-between p-5 xl:p-6 text-white bg-gradient-to-r from-[#082238] via-[#0b2942] to-[#0f3454] relative z-10">
                       <div>
-                        {/* Campaign Badge */}
-                        <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-sm bg-white/15 border border-white/20 text-xs font-july font-bold text-sky-200 shadow-2xs">
-                          <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                          <span>{currentSlide.badge_bn}</span>
-                        </div>
+                        {/* Mini Title Badge */}
+                        {currentSlide.badge_bn && (
+                          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-xs font-july font-bold text-sky-200 shadow-2xs mb-2">
+                            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                            <span>{currentSlide.badge_bn}</span>
+                          </div>
+                        )}
 
                         {/* Heading & 2-line Description linking to distinct page */}
                         <Link
                           href={currentSlide.cta_link || "/donate"}
-                          className="block group mt-2.5"
+                          className="block group"
                         >
                           <h1 className="font-july font-bold text-lg xl:text-xl text-white leading-snug line-clamp-2 tracking-tight group-hover:text-sky-300 transition">
                             {currentSlide.title_bn}
@@ -275,11 +252,8 @@ export default function HomePage() {
                               ))}
                             </div>
 
-                            {/* Counter & Arrows */}
+                            {/* Arrows */}
                             <div className="flex items-center gap-1">
-                              <span className="text-[11px] text-slate-300 font-mono font-bold mr-1">
-                                {toBnDigits(slideIdx + 1)} / {toBnDigits(slides.length)}
-                              </span>
                               <button
                                 type="button"
                                 onClick={() =>
